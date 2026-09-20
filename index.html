@@ -6,6 +6,7 @@
 <title>Ez Service – Visa, Giấy phép lao động & Thủ tục Doanh nghiệp</title>
 <meta name="description" content="Dịch vụ Visa, GPLĐ, Thẻ tạm trú và Thủ tục doanh nghiệp. Nhanh chóng - Uy tín - Chi phí tối ưu.">
 <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
@@ -245,32 +246,43 @@
 
 <script>
 (async function() {
-  const load = async (f) => { try { return await (await fetch(f)).json(); } catch(e){ return null; } };
-  const [S0, SE0, CA0, TE0] = await Promise.all([
-    load('content/settings.json'), load('content/services.json'),
-    load('content/cases.json'), load('content/testimonials.json')
-  ]);
-  const S = S0||{}, SE = SE0||{items:[]}, CA = CA0||{items:[]}, TE = TE0||{items:[]};
-  
+  const SUPABASE_URL = 'https://aymsipswqatwngebxkra.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_Nb_n7SCkEXFutGm6q-c-iA_TgTNMTpi';
+  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  const { data, error } = await sb.from('site_settings').select('content').eq('id', 1).single();
+
+  if (error || !data || !data.content) {
+    console.error('Không tải được dữ liệu:', error);
+    const loader = document.getElementById('loader');
+    if (loader) loader.classList.add('hidden');
+    return;
+  }
+
+  const S = data.content;
+  const SE = { items: S.services || [] };
+  const CA = { items: S.cases || [] };
+  const TE = { items: S.testimonials || [] };
+
   document.querySelectorAll('[data-config]').forEach(el => {
     const k = el.dataset.config;
     if (S[k]) el.textContent = S[k];
   });
-  
+
   const phone = S.hotline_raw || S.hotline || '';
   const zalo = S.zalo || phone;
   const email = S.email || '';
-  
+
   ['headerCta','mobileCall','floatPhone'].forEach(id => { const el=document.getElementById(id); if(el&&phone) el.href='tel:'+phone; });
   ['heroZalo','floatZalo'].forEach(id => { const el=document.getElementById(id); if(el&&zalo) el.href='https://zalo.me/'+zalo; });
-  
+
   const sg = document.getElementById('statsGrid');
   if (sg && S.stats) sg.innerHTML = S.stats.map(s => `
     <div class="reveal text-center py-7 px-5 bg-gradient-to-b from-slate-50 to-white border border-slate-200 rounded-2xl hover:-translate-y-1.5 hover:shadow-xl hover:border-blue-300 transition-all">
       <div class="stat-num text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent" data-target="${s.number}">0</div>
       <div class="text-slate-500 text-sm font-semibold mt-1.5">${s.label}</div>
     </div>`).join('');
-  
+
   const svg = document.getElementById('servicesGrid');
   if (svg) svg.innerHTML = SE.items.map((s,i) => {
     const g = s.color==='green';
@@ -279,11 +291,11 @@
         <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl shrink-0 ${g?'bg-emerald-50 text-emerald-600':'bg-blue-50 text-blue-600'}"><i class="fas ${s.icon}"></i></div>
         <div><div class="text-xl font-extrabold mb-1">${s.title}</div><div class="text-slate-500 text-sm font-semibold">${s.subtitle}</div></div>
       </div>
-      <ul class="space-y-3 mb-6">${s.items.map(x=>`<li class="flex gap-3 text-slate-600 text-[15px]"><i class="fas fa-check-circle text-emerald-500 mt-0.5"></i><span>${x}</span></li>`).join('')}</ul>
+      <ul class="space-y-3 mb-6">${(s.items||[]).map(x=>`<li class="flex gap-3 text-slate-600 text-[15px]"><i class="fas fa-check-circle text-emerald-500 mt-0.5"></i><span>${x}</span></li>`).join('')}</ul>
       <a href="#contact" class="inline-flex items-center gap-2 font-bold text-sm ${g?'text-emerald-600':'text-blue-600'} hover:gap-3.5 transition-all">Tư vấn dịch vụ này <i class="fas fa-arrow-right"></i></a>
     </div>`;
   }).join('');
-  
+
   const cg = document.getElementById('casesGrid');
   if (cg) cg.innerHTML = CA.items.map((c,i) => `
     <div class="reveal bg-white/5 border border-white/10 rounded-3xl overflow-hidden hover:-translate-y-2 hover:border-amber-400/40 hover:shadow-2xl transition-all duration-500" style="transition-delay:${i*0.1}s">
@@ -295,12 +307,12 @@
         <div class="text-lg font-bold mb-2">${c.title}</div>
         <div class="text-slate-400 text-sm leading-relaxed mb-4">${c.description}</div>
         <div class="flex justify-between text-xs text-slate-400 pt-4 border-t border-white/10">
-          <span><i class="fas fa-clock text-amber-400 mr-1.5"></i>${c.duration}</span>
-          <span><i class="fas fa-check text-amber-400 mr-1.5"></i>${c.result}</span>
+          <span><i class="fas fa-clock text-amber-400 mr-1.5"></i>${c.duration||''}</span>
+          <span><i class="fas fa-check text-amber-400 mr-1.5"></i>${c.result||''}</span>
         </div>
       </div>
     </div>`).join('');
-  
+
   const pg = document.getElementById('processGrid');
   if (pg && S.process) pg.innerHTML = S.process.map((p,i) => `
     <div class="reveal bg-slate-50 border border-slate-200 rounded-3xl p-9 hover:bg-white hover:-translate-y-1.5 hover:shadow-2xl transition-all" style="transition-delay:${i*0.15}s">
@@ -308,18 +320,18 @@
       <div class="text-xl font-bold mb-3">${p.title}</div>
       <div class="text-slate-500 leading-relaxed">${p.desc}</div>
     </div>`).join('');
-  
+
   const tg = document.getElementById('testimonialsGrid');
   if (tg) tg.innerHTML = TE.items.map((t,i) => `
     <div class="reveal bg-white/5 border border-white/10 rounded-3xl p-8 hover:-translate-y-1.5 hover:bg-white/[.08] transition-all" style="transition-delay:${i*0.1}s">
       <div class="flex gap-1 text-amber-400 mb-5 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
       <div class="text-slate-300 italic leading-relaxed mb-6">"${t.text}"</div>
       <div class="flex items-center gap-3.5">
-        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-amber-500 to-amber-400 flex items-center justify-center font-extrabold text-amber-950">${t.name.charAt(0)}</div>
+        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-amber-500 to-amber-400 flex items-center justify-center font-extrabold text-amber-950">${(t.name||'?').charAt(0)}</div>
         <div><div class="font-bold text-[15px]">${t.name}</div><div class="text-slate-400 text-sm">${t.role}</div></div>
       </div>
     </div>`).join('');
-  
+
   const ccg = document.getElementById('contactCtaGrid');
   if (ccg) ccg.innerHTML = `
     <a href="tel:${phone}" class="reveal bg-white border border-slate-200 rounded-3xl p-8 text-center hover:-translate-y-1.5 hover:shadow-xl hover:border-blue-300 transition-all">
@@ -331,7 +343,7 @@
     <a href="mailto:${email}" class="reveal bg-white border border-slate-200 rounded-3xl p-8 text-center hover:-translate-y-1.5 hover:shadow-xl hover:border-blue-300 transition-all">
       <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-400 flex items-center justify-center text-white text-2xl"><i class="fas fa-envelope"></i></div>
       <div class="font-bold mb-1.5">Email</div><div class="text-slate-500 text-sm break-all">${email}</div></a>`;
-  
+
   const cl = document.getElementById('contactList');
   if (cl) cl.innerHTML = `
     <a href="tel:${phone}" class="flex items-center gap-4 p-4 bg-white border border-slate-200 rounded-2xl hover:border-blue-400 hover:translate-x-1.5 hover:shadow-md transition-all">
@@ -343,15 +355,15 @@
     <div class="flex items-center gap-4 p-4 bg-white border border-slate-200 rounded-2xl">
       <i class="fas fa-map-marker-alt text-blue-600 text-lg w-6"></i>
       <div><div class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Địa chỉ</div><div class="font-bold">${S.address||''}</div></div></div>`;
-  
+
   document.getElementById('year').textContent = new Date().getFullYear();
-  setTimeout(() => document.getElementById('loader').classList.add('hidden'), 500);
-  
+  setTimeout(() => { const l = document.getElementById('loader'); if (l) l.classList.add('hidden'); }, 500);
+
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); io.unobserve(e.target); } });
   }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-  
+
   const cio = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -372,14 +384,16 @@
     });
   }, { threshold: 0.5 });
   document.querySelectorAll('.stat-num').forEach(c => cio.observe(c));
-  
+
   const header = document.getElementById('siteHeader');
-  window.addEventListener('scroll', () => header.classList.toggle('shadow-md', window.scrollY > 30));
-  
+  if (header) window.addEventListener('scroll', () => header.classList.toggle('shadow-md', window.scrollY > 30));
+
   const mm = document.getElementById('mobileMenu');
-  document.getElementById('mobileToggle').onclick = () => mm.classList.remove('translate-x-full');
-  document.getElementById('mobileClose').onclick = () => mm.classList.add('translate-x-full');
-  mm.querySelectorAll('a').forEach(a => a.onclick = () => mm.classList.add('translate-x-full'));
+  const mt = document.getElementById('mobileToggle');
+  const mc = document.getElementById('mobileClose');
+  if (mt && mm) mt.onclick = () => mm.classList.remove('translate-x-full');
+  if (mc && mm) mc.onclick = () => mm.classList.add('translate-x-full');
+  if (mm) mm.querySelectorAll('a').forEach(a => a.onclick = () => mm.classList.add('translate-x-full'));
 })();
 </script>
 </body>
