@@ -1,0 +1,19 @@
+{
+  "items": [
+    {
+      "name": "Anh Minh",
+      "role": "Giám đốc Công ty TNHH ABC",
+      "text": "Dịch vụ rất nhanh và chuyên nghiệp. Tôi đã nhận được giấy phép lao động cho chuyên gia nước ngoài chỉ trong 2 tuần."
+    },
+    {
+      "name": "Chị Hương",
+      "role": "Chủ hộ kinh doanh",
+      "text": "Tư vấn nhiệt tình, chi phí minh bạch. Tôi yên tâm giao hồ sơ thành lập công ty cho Ez Service."
+    },
+    {
+      "name": "Mr. David",
+      "role": "Chuyên gia nước ngoài",
+      "text": "Fast, reliable, and professional. My work permit and temporary residence card were handled smoothly."
+    }
+  ]
+}
