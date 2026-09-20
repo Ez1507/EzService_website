@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quản trị - Ez Service</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  body { font-family: 'Manrope', sans-serif; }
+  .tab-btn.active { background: #2563eb; color: #fff; }
+  .tab-btn.active i { color: #fff !important; }
+</style>
+</head>
+<body class="bg-slate-100 min-h-screen">
+
+<!-- ============ LOGIN SCREEN ============ -->
+<div id="loginView" class="min-h-screen flex items-center justify-center px-4">
+  <div class="bg-white rounded-3xl shadow-2xl p-10 max-w-md w-full text-center">
+    <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-500 flex items-center justify-center text-white font-extrabold text-2xl shadow-lg shadow-blue-500/30">Ez</div>
+    <h1 class="text-2xl font-extrabold text-slate-800 mb-2">Quản trị Ez Service</h1>
+    <p class="text-slate-500 mb-8">Đăng nhập để chỉnh sửa nội dung website</p>
+    <button id="loginBtn" class="w-full bg-slate-900 text-white font-bold py-3.5 px-4 rounded-xl hover:bg-slate-800 transition flex items-center justify-center gap-3 text-base">
+      <i class="fab fa-github text-xl"></i> Đăng nhập bằng GitHub
+    </button>
+    <p id="loginError" class="text-red-500 text-sm mt-4 hidden"></p>
+  </div>
+</div>
+
+<!-- ============ ADMIN PANEL ============ -->
+<div id="adminView" class="hidden">
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-blue-500 flex items-center justify-center text-white font-extrabold">Ez</div>
+        <div>
+          <div class="font-bold text-slate-800">Trang quản trị</div>
+          <div class="text-xs text-slate-500" id="userEmail">-</div>
+        </div>
+      </div>
+      <button id="logoutBtn" class="text-sm font-semibold text-red-500 hover:text-red-700 flex items-center gap-2">
+        <i class="fas fa-sign-out-alt"></i> Đăng xuất
+      </button>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6 py-8">
+    <div class="flex flex-wrap gap-2 mb-6">
+      <button data-tab="settings" class="tab-btn active px-4 py-2.5 rounded-xl font-semibold text-sm bg-white text-slate-600 hover:bg-slate-50 transition"><i class="fas fa-cog mr-2 text-blue-600"></i> Cài đặt chung</button>
+      <button data-tab="services" class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-sm bg-white text-slate-600 hover:bg-slate-50 transition"><i class="fas fa-briefcase mr-2 text-green-500"></i> Dịch vụ</button>
+      <button data-tab="cases" class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-sm bg-white text-slate-600 hover:bg-slate-50 transition"><i class="fas fa-trophy mr-2 text-amber-500"></i> Hồ sơ thành công</button>
+      <button data-tab="testimonials" class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-sm bg-white text-slate-600 hover:bg-slate-50 transition"><i class="fas fa-star mr-2 text-yellow-500"></i> Đánh giá</button>
+    </div>
+
+    <div id="statusMsg" class="hidden mb-4 px-4 py-3 rounded-xl text-sm font-semibold"></div>
+
+    <!-- ============ TAB: SETTINGS ============ -->
+    <div id="tab-settings" class="tab-panel">
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+        <h2 class="text-lg font-bold text-slate-800 mb-6">Thông tin liên hệ & thương hiệu</h2>
+        <div class="grid md:grid-cols-2 gap-5">
+          <div>
+            <label class="block text-sm font-semibold text-slate-600 mb-1.5">Tên thương hiệu</label>
+            <input type="text" id="f_brand_name" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 focus:ring-2 focus:ring-blue-500 outline-none">
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-slate-600 mb-1.5">Slogan</label>
+            <input type="text" id="f_tagline" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 focus:ring-2 focus:ring-blue-500 outline-none">
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-slate-600 mb-1.5">Hotline (hiển thị)</label>
+            <input type="text" id="f_hotline" placeholder="0938 267 586" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 focus:ring-2 focus:ring-blue-500 outline-none">
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-slate-600 mb-1.5">Hotline (dạng gọi được)</label>
+            <input type="text" id="f_hotline_raw" placeholder="0938267586" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 focus:ring-2 focus:ring-blue-500 outline-none">
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-slate-600 mb-1.5">Số Zalo</label>
+            <input type="text" id="f_zalo" placeholder="0938267586" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 focus:ring-2 focus:ring-blue-500 outline-none">
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-slate-600 mb-1.5">Email</label>
+            <input type="email" id="f_email" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 focus:ring-2 focus:ring-blue-500 outline-none">
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-sm font-semibold text-slate-600 mb-1.5">Địa chỉ / Ghi chú</label>
+            <input type="text" id="f_address" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 focus:ring-2 focus:ring-blue-500 outline-none">
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-sm font-semibold text-slate-600 mb-1.5">Mô tả footer</label>
+            <textarea id="f_footer_description" rows="2" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 focus:ring-2 focus:ring-blue-500 outline-none"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ TAB: SERVICES ============ -->
+    <div id="tab-services" class="tab-panel hidden">
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-lg font-bold text-slate-800">Danh sách dịch vụ</h2>
+          <button id="addServiceBtn" class="bg-blue-600 text-white font-bold text-sm px-4 py-2 rounded-xl hover:bg-blue-700 transition">
+            <i class="fas fa-plus mr-1"></i> Thêm dịch vụ
+          </button>
+        </div>
+        <div id="servicesList" class="space-y-4"></div>
+      </div>
+    </div>
+
+    <!-- ============ TAB: CASES ============ -->
+    <div id="tab-cases" class="tab-panel hidden">
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-lg font-bold text-slate-800">Hồ sơ thành công</h2>
+          <button id="addCaseBtn" class="bg-blue-600 text-white font-bold text-sm px-4 py-2 rounded-xl hover:bg-blue-700 transition">
+            <i class="fas fa-plus mr-1"></i> Thêm case
+          </button>
+        </div>
+        <div id="casesList" class="space-y-4"></div>
+      </div>
+    </div>
+
+    <!-- ============ TAB: TESTIMONIALS ============ -->
+    <div id="tab-testimonials" class="tab-panel hidden">
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-lg font-bold text-slate-800">Đánh giá khách hàng</h2>
+          <button id="addTestimonialBtn" class="bg-blue-600 text-white font-bold text-sm px-4 py-2 rounded-xl hover:bg-blue-700 transition">
+            <i class="fas fa-plus mr-1"></i> Thêm đánh giá
+          </button>
+        </div>
+        <div id="testimonialsList" class="space-y-4"></div>
+      </div>
+    </div>
+
+    <div class="mt-8 flex justify-end gap-3">
+      <button id="saveBtn" class="bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold px-8 py-3.5 rounded-xl hover:-translate-y-0.5 transition shadow-lg shadow-blue-500/30">
+        <i class="fas fa-save mr-2"></i> Lưu tất cả thay đổi
+      </button>
+    </div>
+  </main>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://aymsipswqatwngebxkra.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_Nb_n7SCkEXFutGm6q-c-iA_TgTNMTpi';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let currentContent = {
+  brand_name: '', tagline: '', hotline: '', hotline_raw: '', zalo: '', email: '', address: '', footer_description: '',
+  services: [],
+  cases: [],
+  testimonials: []
+};
+
+const $ = (id) => document.getElementById(id);
+const loginView = $('loginView');
+const adminView = $('adminView');
+const loginBtn = $('loginBtn');
+const logoutBtn = $('logoutBtn');
+const saveBtn = $('saveBtn');
+const statusMsg = $('statusMsg');
+
+function showStatus(msg, type = 'success') {
+  statusMsg.textContent = msg;
+  statusMsg.className = `mb-4 px-4 py-3 rounded-xl text-sm font-semibold ${type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`;
+  statusMsg.classList.remove('hidden');
+  setTimeout(() => statusMsg.classList.add('hidden'), 4000);
+}
+
+loginBtn.addEventListener('click', async () => {
+  loginBtn.disabled = true;
+  loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang chuyển hướng...';
+  const { error } = await sb.auth.signInWithOAuth({
+    provider: 'github',
+    options: { redirectTo: window.location.href }
+  });
+  if (error) {
+    $('loginError').textContent = 'Lỗi: ' + error.message;
+    $('loginError').classList.remove('hidden');
+    loginBtn.disabled = false;
+    loginBtn.innerHTML = '<i class="fab fa-github text-xl"></i> Đăng nhập bằng GitHub';
+  }
+});
+
+logoutBtn.addEventListener('click', async () => { await sb.auth.signOut(); });
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+    btn.classList.add('active');
+    $('tab-' + btn.dataset.tab).classList.remove('hidden');
+  });
+});
+
+// ========== SERVICES ==========
+function renderServices() {
+  const list = $('servicesList');
+  if (!currentContent.services || currentContent.services.length === 0) {
+    list.innerHTML = '<p class="text-slate-400 text-center py-8">Chưa có dịch vụ nào.</p>';
+    return;
+  }
+  list.innerHTML = currentContent.services.map((s, i) => `
+    <div class="border border-slate-200 rounded-xl p-4" data-index="${i}">
+      <div class="flex justify-between items-center mb-3">
+        <span class="text-sm font-bold text-slate-500">Dịch vụ #${i + 1}</span>
+        <button type="button" class="text-red-500 hover:text-red-700 text-sm font-semibold remove-service" data-index="${i}"><i class="fas fa-trash"></i> Xóa</button>
+      </div>
+      <div class="grid md:grid-cols-2 gap-3">
+        <input type="text" placeholder="Tiêu đề" value="${s.title || ''}" class="sv-title border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500">
+        <input type="text" placeholder="Phụ đề" value="${s.subtitle || ''}" class="sv-subtitle border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500">
+        <input type="text" placeholder="Icon (VD: fa-passport)" value="${s.icon || ''}" class="sv-icon border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500">
+        <select class="sv-color border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500">
+          <option value="blue" ${s.color === 'blue' ? 'selected' : ''}>Xanh dương</option>
+          <option value="green" ${s.color === 'green' ? 'selected' : ''}>Xanh lá</option>
+        </select>
+        <textarea placeholder="Các mục con (mỗi dòng 1 mục)" rows="4" class="sv-items md:col-span-2 border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500">${(s.items || []).join('\n')}</textarea>
+      </div>
+    </div>
+  `).join('');
+
+  document.querySelectorAll('.remove-service').forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentContent.services.splice(parseInt(btn.dataset.index), 1);
+      renderServices();
+    });
+  });
+
+  document.querySelectorAll('#servicesList [data-index]').forEach(card => {
+    const idx = parseInt(card.dataset.index);
+    card.querySelectorAll('input, textarea, select').forEach(inp => {
+      inp.addEventListener('input', () => {
+        const cls = inp.className;
+        if (cls.includes('sv-title')) currentContent.services[idx].title = inp.value;
+        else if (cls.includes('sv-subtitle')) currentContent.services[idx].subtitle = inp.value;
+        else if (cls.includes('sv-icon')) currentContent.services[idx].icon = inp.value;
+        else if (cls.includes('sv-color')) currentContent.services[idx].color = inp.value;
+        else if (cls.includes('sv-items')) currentContent.services[idx].items = inp.value.split('\n').filter(x => x.trim());
+      });
+    });
+  });
+}
+
+$('addServiceBtn').addEventListener('click', () => {
+  if (!currentContent.services) currentContent.services = [];
+  currentContent.services.push({ title: '', subtitle: '', icon: 'fa-briefcase', color: 'blue', items: [] });
+  renderServices();
+});
+
+// ========== CASES ==========
+function renderCases() {
+  const list = $('casesList');
+  if (!currentContent.cases || currentContent.cases.length === 0) {
+    list.innerHTML = '<p class="text-slate-400 text-center py-8">Chưa có case nào.</p>';
+    return;
+  }
+  list.innerHTML = currentContent.cases.map((c, i) => `
+    <div class="border border-slate-200 rounded-xl p-4" data-index="${i}">
+      <div class="flex justify-between items-center mb-3">
+        <span class="text-sm font-bold text-slate-500">Case #${i + 1}</span>
+        <button type="button" class="text-red-500 hover:text-red-700 text-sm font-semibold remove-case" data-index="${i}"><i class="fas fa-trash"></i> Xóa</button>
+      </div>
+      <div class="grid md:grid-cols-2 gap-3">
+        <input type="text" placeholder="Tiêu đề" value="${c.title || ''}" class="cs-title border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500">
+        <input type="text" placeholder="Tag (VD: Visa)" value="${c.tag || ''}" class="cs-tag border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500">
+        <input type="text" placeholder="Thời gian (VD: 14 ngày)" value="${c.duration || ''}" class="cs-duration border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500">
+        <input type="text" placeholder="Kết quả" value="${c.result || 'Thành công'}" class="cs-result border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500">
+        <textarea placeholder="Mô tả" rows="2" class="cs-desc md:col-span-2 border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500">${c.description || ''}</textarea>
+      </div>
+    </div>
+  `).join('');
+
+  document.querySelectorAll('.remove-case').forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentContent.cases.splice(parseInt(btn.dataset.index), 1);
+      renderCases();
+    });
+  });
+
+  document.querySelectorAll('#casesList [data-index]').forEach(card => {
+    const idx = parseInt(card.dataset.index);
+    card.querySelectorAll('input, textarea').forEach(inp => {
+      inp.addEventListener('input', () => {
+        const cls = inp.className;
+        if (cls.includes('cs-title')) currentContent.cases[idx].title = inp.value;
+        else if (cls.includes('cs-tag')) currentContent.cases[idx].tag = inp.value;
+        else if (cls.includes('cs-duration')) currentContent.cases[idx].duration = inp.value;
+        else if (cls.includes('cs-result')) currentContent.cases[idx].result = inp.value;
+        else if (cls.includes('cs-desc')) currentContent.cases[idx].description = inp.value;
+      });
+    });
+  });
+}
+
+$('addCaseBtn').addEventListener('click', () => {
+  if (!currentContent.cases) currentContent.cases = [];
+  currentContent.cases.push({ title: '', description: '', tag: '', duration: '', result: 'Thành công', image: '' });
+  renderCases();
+});
+
+// ========== TESTIMONIALS ==========
+function renderTestimonials() {
+  const list = $('testimonialsList');
+  if (!currentContent.testimonials || currentContent.testimonials.length === 0) {
+    list.innerHTML = '<p class="text-slate-400 text-center py-8">Chưa có đánh giá nào.</p>';
+    return;
+  }
+  list.innerHTML = currentContent.testimonials.map((t, i) => `
+    <div class="border border-slate-200 rounded-xl p-4" data-index="${i}">
+      <div class="flex justify-between items-center mb-3">
+        <span class="text-sm font-bold text-slate-500">Đánh giá #${i + 1}</span>
+        <button type="button" class="text-red-500 hover:text-red-700 text-sm font-semibold remove-testimonial" data-index="${i}"><i class="fas fa-trash"></i> Xóa</button>
+      </div>
+      <div class="grid md:grid-cols-2 gap-3">
+        <input type="text" placeholder="Tên khách hàng" value="${t.name || ''}" class="ts-name border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500">
+        <input type="text" placeholder="Chức danh / Vai trò" value="${t.role || ''}" class="ts-role border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500">
+        <textarea placeholder="Nội dung đánh giá" rows="3" class="ts-text md:col-span-2 border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500">${t.text || ''}</textarea>
+      </div>
+    </div>
+  `).join('');
+
+  document.querySelectorAll('.remove-testimonial').forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentContent.testimonials.splice(parseInt(btn.dataset.index), 1);
+      renderTestimonials();
+    });
+  });
+
+  document.querySelectorAll('#testimonialsList [data-index]').forEach(card => {
+    const idx = parseInt(card.dataset.index);
+    card.querySelectorAll('input, textarea').forEach(inp => {
+      inp.addEventListener('input', () => {
+        const cls = inp.className;
+        if (cls.includes('ts-name')) currentContent.testimonials[idx].name = inp.value;
+        else if (cls.includes('ts-role')) currentContent.testimonials[idx].role = inp.value;
+        else if (cls.includes('ts-text')) currentContent.testimonials[idx].text = inp.value;
+      });
+    });
+  });
+}
+
+$('addTestimonialBtn').addEventListener('click', () => {
+  if (!currentContent.testimonials) currentContent.testimonials = [];
+  currentContent.testimonials.push({ name: '', role: '', text: '' });
+  renderTestimonials();
+});
+
+// ========== LOAD / SAVE ==========
+async function loadSettings() {
+  const { data, error } = await sb.from('site_settings').select('content').eq('id', 1).single();
+  if (error) {
+    showStatus('Không tải được dữ liệu: ' + error.message, 'error');
+    console.error(error);
+    return;
+  }
+  if (data && data.content) {
+    currentContent = { ...currentContent, ...data.content };
+    if (!currentContent.services) currentContent.services = [];
+    if (!currentContent.cases) currentContent.cases = [];
+    if (!currentContent.testimonials) currentContent.testimonials = [];
+  }
+  ['brand_name','tagline','hotline','hotline_raw','zalo','email','address','footer_description'].forEach(k => {
+    if ($('f_' + k)) $('f_' + k).value = currentContent[k] || '';
+  });
+  renderServices();
+  renderCases();
+  renderTestimonials();
+}
+
+function collectForm() {
+  ['brand_name','tagline','hotline','hotline_raw','zalo','email','address','footer_description'].forEach(k => {
+    if ($('f_' + k)) currentContent[k] = $('f_' + k).value;
+  });
+}
+
+saveBtn.addEventListener('click', async () => {
+  collectForm();
+  saveBtn.disabled = true;
+  saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang lưu...';
+  const { error } = await sb.from('site_settings').update({ content: currentContent }).eq('id', 1);
+  saveBtn.disabled = false;
+  saveBtn.innerHTML = '<i class="fas fa-save mr-2"></i> Lưu tất cả thay đổi';
+  if (error) showStatus('Lỗi khi lưu: ' + error.message, 'error');
+  else showStatus('Đã lưu thành công! Tải lại website để xem thay đổi.');
+});
+
+sb.auth.onAuthStateChange((event, session) => {
+  if (session) {
+    loginView.classList.add('hidden');
+    adminView.classList.remove('hidden');
+    $('userEmail').textContent = session.user.email || session.user.user_metadata?.user_name || 'Đã đăng nhập';
+    loadSettings();
+  } else {
+    loginView.classList.remove('hidden');
+    adminView.classList.add('hidden');
+  }
+});
+</script>
+
+</body>
+</html>
