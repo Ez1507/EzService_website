@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "title": "Dịch vụ cho Người nước ngoài",
+      "subtitle": "Visa, GPLĐ, Tạm trú",
+      "icon": "fa-passport",
+      "color": "blue",
+      "items": [
+        "Visa các loại (EV, DN, ĐT, LĐ...)",
+        "Giấy phép lao động (Cấp mới, Gia hạn)",
+        "Thẻ tạm trú",
+        "Công văn nhập cảnh",
+        "Lý lịch tư pháp",
+        "Khám sức khỏe"
+      ]
+    },
+    {
+      "title": "Dịch vụ Doanh nghiệp",
+      "subtitle": "Thành lập, Thay đổi, Đầu tư",
+      "icon": "fa-building",
+      "color": "green",
+      "items": [
+        "Thành lập công ty mới",
+        "Thay đổi Đăng ký kinh doanh",
+        "Bổ sung ngành nghề",
+        "Thay đổi địa chỉ, thành viên",
+        "Hợp pháp hóa lãnh sự",
+        "Dịch thuật công chứng"
+      ]
+    }
+  ]
+}
