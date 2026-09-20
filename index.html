@@ -6,7 +6,6 @@
 <title>Ez Service – Visa, Giấy phép lao động & Thủ tục Doanh nghiệp</title>
 <meta name="description" content="Dịch vụ Visa, GPLĐ, Thẻ tạm trú và Thủ tục doanh nghiệp. Nhanh chóng - Uy tín - Chi phí tối ưu.">
 <script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
@@ -53,8 +52,8 @@
     <a href="#" class="flex items-center gap-2.5">
       <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-600 to-blue-500 flex items-center justify-center text-white font-extrabold text-lg shadow-lg shadow-blue-500/30">Ez</div>
       <div>
-        <div class="font-extrabold text-slate-900 leading-tight" data-config="brand_name">Ez Service</div>
-        <div class="text-[10px] text-slate-500 uppercase tracking-widest font-semibold" data-config="tagline">Dễ dàng hơn bạn nghĩ</div>
+        <div class="font-extrabold text-slate-900 leading-tight" id="brandName">Ez Service</div>
+        <div class="text-[10px] text-slate-500 uppercase tracking-widest font-semibold" id="tagline">Dễ dàng hơn bạn nghĩ</div>
       </div>
     </a>
     <nav class="hidden lg:flex gap-8 font-semibold text-sm text-slate-600">
@@ -64,7 +63,7 @@
       <a href="#testimonials" class="hover:text-blue-600 transition">Đánh giá</a>
       <a href="#contact" class="hover:text-blue-600 transition">Liên hệ</a>
     </nav>
-    <a href="#" id="headerCta" class="hidden lg:inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-500 text-white px-5 py-2.5 rounded-full font-bold text-sm shadow-lg shadow-blue-500/30 hover:-translate-y-0.5 transition">
+    <a href="tel:0938267586" id="headerCta" class="hidden lg:inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-500 text-white px-5 py-2.5 rounded-full font-bold text-sm shadow-lg shadow-blue-500/30 hover:-translate-y-0.5 transition">
       <i class="fas fa-phone-alt"></i> Gọi ngay
     </a>
     <button id="mobileToggle" class="lg:hidden text-2xl text-slate-800"><i class="fas fa-bars"></i></button>
@@ -93,7 +92,7 @@
       </p>
       <div class="reveal flex flex-wrap gap-4 mb-9">
         <a href="#contact" class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-400 text-amber-950 px-8 py-4 rounded-full font-extrabold shadow-xl shadow-amber-500/30 hover:-translate-y-0.5 transition">Nhận tư vấn miễn phí</a>
-        <a href="#" id="heroZalo" class="inline-flex items-center gap-2 bg-white/10 border border-white/25 text-white px-8 py-4 rounded-full font-bold backdrop-blur hover:bg-white/20 transition"><i class="fas fa-comment-dots"></i> Chat Zalo</a>
+        <a href="https://zalo.me/0938267586" id="heroZalo" target="_blank" class="inline-flex items-center gap-2 bg-white/10 border border-white/25 text-white px-8 py-4 rounded-full font-bold backdrop-blur hover:bg-white/20 transition"><i class="fas fa-comment-dots"></i> Chat Zalo</a>
       </div>
       <div class="reveal flex flex-wrap gap-6 text-sm text-slate-400">
         <div><i class="fas fa-shield-alt text-amber-400 mr-2"></i>Bảo mật thông tin</div>
@@ -200,9 +199,9 @@
     <div>
       <div class="flex items-center gap-2.5 mb-4">
         <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-600 to-blue-500 flex items-center justify-center text-white font-extrabold">Ez</div>
-        <div class="text-white font-extrabold text-lg" data-config="brand_name"></div>
+        <div class="text-white font-extrabold text-lg" id="footerBrand">Ez Service</div>
       </div>
-      <p class="text-sm leading-relaxed" data-config="footer_description"></p>
+      <p class="text-sm leading-relaxed" id="footerDesc">Dịch vụ Visa, GPLĐ, Tạm trú và Thủ tục doanh nghiệp. Nhanh chóng - Uy tín - Chi phí tối ưu.</p>
     </div>
     <div>
       <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Dịch vụ</h4>
@@ -218,16 +217,15 @@
       <ul class="space-y-2.5 text-sm" id="footerContact"></ul>
     </div>
   </div>
-  <!-- Nút quản trị ẩn -->
   <div class="border-t border-white/10 py-6 text-center text-sm flex items-center justify-center gap-4">
-    <span>© <span id="year"></span> <span data-config="brand_name"></span>. All rights reserved.</span>
+    <span>© <span id="year"></span> <span id="footerBrand2">Ez Service</span>. All rights reserved.</span>
     <a href="/admin.html" class="text-white/15 hover:text-amber-400 transition-colors duration-300 text-xs" title="Quản trị"><i class="fas fa-lock"></i></a>
   </div>
 </footer>
 
 <div class="fixed bottom-6 right-6 flex flex-col gap-3 z-40">
-  <a href="#" id="floatZalo" class="w-14 h-14 rounded-full bg-[#0068ff] text-white flex items-center justify-center text-2xl shadow-2xl hover:scale-110 transition" title="Chat Zalo"><i class="fas fa-comment-dots"></i></a>
-  <a href="#" id="floatPhone" class="floater-phone w-14 h-14 rounded-full bg-emerald-500 text-white flex items-center justify-center text-2xl shadow-2xl hover:scale-110 transition" title="Gọi điện"><i class="fas fa-phone-alt"></i></a>
+  <a href="https://zalo.me/0938267586" id="floatZalo" target="_blank" class="w-14 h-14 rounded-full bg-[#0068ff] text-white flex items-center justify-center text-2xl shadow-2xl hover:scale-110 transition" title="Chat Zalo"><i class="fas fa-comment-dots"></i></a>
+  <a href="tel:0938267586" id="floatPhone" class="floater-phone w-14 h-14 rounded-full bg-emerald-500 text-white flex items-center justify-center text-2xl shadow-2xl hover:scale-110 transition" title="Gọi điện"><i class="fas fa-phone-alt"></i></a>
 </div>
 
 <div id="mobileMenu" class="fixed inset-y-0 right-0 w-80 max-w-[85vw] bg-white z-[200] p-8 pt-20 shadow-2xl translate-x-full transition-transform duration-300">
@@ -238,208 +236,294 @@
     <a href="#process" class="pb-3 border-b border-slate-200">Quy trình</a>
     <a href="#testimonials" class="pb-3 border-b border-slate-200">Đánh giá</a>
     <a href="#contact" class="pb-3 border-b border-slate-200">Liên hệ</a>
-    <a href="#" id="mobileCall" class="bg-gradient-to-r from-blue-600 to-blue-500 text-white text-center py-3 rounded-full mt-2">Gọi ngay</a>
+    <a href="tel:0938267586" id="mobileCall" class="bg-gradient-to-r from-blue-600 to-blue-500 text-white text-center py-3 rounded-full mt-2">Gọi ngay</a>
   </nav>
 </div>
 
+<!-- ================================================================
+     DỮ LIỆU MẶC ĐỊNH - Hiển thị nếu Supabase lỗi
+================================================================= -->
 <script>
-(async function() {
-  const SUPABASE_URL = 'https://aymsipswqatwngebxkra.supabase.co';
-  const SUPABASE_KEY = 'sb_publishable_Nb_n7SCkEXFutGm6q-c-iA_TgTNMTpi';
-  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+window.DEFAULT_DATA = {
+  brand_name: "Ez Service",
+  tagline: "Dễ dàng hơn bạn nghĩ",
+  hotline: "0938 267 586",
+  hotline_raw: "0938267586",
+  zalo: "0938267586",
+  email: "info@ezservice.com.vn",
+  address: "Tân Tâm - Nhanh chóng - Hiệu quả",
+  footer_description: "Dịch vụ Visa, Giấy phép lao động, Thẻ tạm trú và Thủ tục doanh nghiệp.",
+  stats: [
+    { number: "500+", label: "Hồ sơ thành công" },
+    { number: "5+", label: "Năm kinh nghiệm" },
+    { number: "98%", label: "Khách hàng hài lòng" },
+    { number: "24/7", label: "Hỗ trợ khẩn cấp" }
+  ],
+  process: [
+    { step: "01", title: "Tư vấn", desc: "Liên hệ, mô tả nhu cầu. Tôi sẽ tư vấn miễn phí và báo giá rõ ràng." },
+    { step: "02", title: "Xử lý hồ sơ", desc: "Bạn cung cấp giấy tờ. Tôi chuẩn bị, kiểm tra và nộp hồ sơ đúng quy định." },
+    { step: "03", title: "Nhận kết quả", desc: "Theo dõi tiến độ, nhận kết quả tận tay. Hỗ trợ sau khi hoàn thành." }
+  ],
+  services: [
+    { title: "Dịch vụ cho Người nước ngoài", subtitle: "Visa, GPLĐ, Tạm trú", icon: "fa-passport", color: "blue", items: ["Visa các loại (EV, DN, ĐT, LĐ...)", "Giấy phép lao động (Cấp mới, Gia hạn)", "Thẻ tạm trú", "Công văn nhập cảnh", "Lý lịch tư pháp", "Khám sức khỏe"] },
+    { title: "Dịch vụ Doanh nghiệp", subtitle: "Thành lập, Thay đổi, Đầu tư", icon: "fa-building", color: "green", items: ["Thành lập công ty mới", "Thay đổi Đăng ký kinh doanh", "Bổ sung ngành nghề", "Thay đổi địa chỉ, thành viên", "Hợp pháp hóa lãnh sự", "Dịch thuật công chứng"] }
+  ],
+  cases: [
+    { title: "GPLĐ cho chuyên gia Hàn Quốc", description: "Hỗ trợ công ty TNHH ABC hoàn thiện hồ sơ cấp mới giấy phép lao động cho chuyên gia kỹ thuật người Hàn Quốc.", tag: "Giấy phép lao động", duration: "14 ngày", result: "Thành công", image: "" },
+    { title: "Thành lập Công ty TNHH", description: "Tư vấn và thành lập công ty TNHH một thành viên cho khách hàng cá nhân, vốn điều lệ 2 tỷ đồng.", tag: "Thành lập DN", duration: "7 ngày", result: "Thành công", image: "" },
+    { title: "Visa DN cho đối tác Nhật", description: "Xử lý công văn nhập cảnh và visa DN cho 3 chuyên gia người Nhật sang công tác tại Việt Nam trong 1 tháng.", tag: "Visa", duration: "5 ngày", result: "Thành công", image: "" }
+  ],
+  testimonials: [
+    { name: "Anh Minh", role: "Giám đốc Công ty TNHH ABC", text: "Dịch vụ rất nhanh và chuyên nghiệp. Tôi đã nhận được giấy phép lao động cho chuyên gia nước ngoài chỉ trong 2 tuần." },
+    { name: "Chị Hương", role: "Chủ hộ kinh doanh", text: "Tư vấn nhiệt tình, chi phí minh bạch. Tôi yên tâm giao hồ sơ thành lập công ty cho Ez Service." },
+    { name: "Mr. David", role: "Chuyên gia nước ngoài", text: "Fast, reliable, and professional. My work permit and temporary residence card were handled smoothly." }
+  ]
+};
+</script>
 
-  const { data, error } = await sb.from('site_settings').select('content').eq('id', 1).single();
+<!-- ================================================================
+     RENDER
+================================================================= -->
+<script>
+(function() {
+  'use strict';
 
-  if (error || !data || !data.content) {
-    console.error('Không tải được dữ liệu:', error);
-    const loader = document.getElementById('loader');
-    if (loader) loader.classList.add('hidden');
-    return;
+  function hideLoader() {
+    const l = document.getElementById('loader');
+    if (l) l.classList.add('hidden');
   }
 
-  const S = data.content;
-  const SE = { items: S.services || [] };
-  const CA = { items: S.cases || [] };
-  const TE = { items: S.testimonials || [] };
+  function renderAll(S) {
+    // Brand
+    if (S.brand_name) {
+      ['brandName','footerBrand','footerBrand2'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent = S.brand_name; });
+    }
+    if (S.tagline) { const el = document.getElementById('tagline'); if(el) el.textContent = S.tagline; }
+    if (S.footer_description) { const el = document.getElementById('footerDesc'); if(el) el.textContent = S.footer_description; }
 
-  document.querySelectorAll('[data-config]').forEach(el => {
-    const k = el.dataset.config;
-    if (S[k]) el.textContent = S[k];
-  });
+    const phone = S.hotline_raw || S.hotline || '';
+    const zalo = S.zalo || phone;
+    const email = S.email || '';
 
-  const phone = S.hotline_raw || S.hotline || '';
-  const zalo = S.zalo || phone;
-  const email = S.email || '';
+    // TOP BAR
+    const topbarEl = document.getElementById('topbar');
+    const topbarContact = document.getElementById('topbarContact');
+    if (topbarEl && topbarContact) {
+      let html = '';
+      if (S.hotline) html += '<span><i class="fas fa-phone-alt text-amber-400 mr-2"></i>' + S.hotline + '</span>';
+      if (S.email) html += '<span><i class="fas fa-envelope text-amber-400 mr-2"></i>' + S.email + '</span>';
+      if (html) {
+        topbarContact.innerHTML = html;
+        topbarEl.classList.remove('hidden');
+        topbarEl.classList.add('md:block');
+      }
+    }
 
-  // TOP BAR
-  const topbarEl = document.getElementById('topbar');
-  const topbarContact = document.getElementById('topbarContact');
-  if (topbarEl && topbarContact) {
-    let html = '';
-    if (S.hotline) html += `<span><i class="fas fa-phone-alt text-amber-400 mr-2"></i>${S.hotline}</span>`;
-    if (S.email) html += `<span><i class="fas fa-envelope text-amber-400 mr-2"></i>${S.email}</span>`;
-    if (html) {
-      topbarContact.innerHTML = html;
-      topbarEl.classList.remove('hidden');
-      topbarEl.classList.add('md:block');
+    // FOOTER CONTACT
+    const footerContact = document.getElementById('footerContact');
+    if (footerContact) {
+      let html = '';
+      if (S.hotline) html += '<li><i class="fas fa-phone-alt text-amber-400 w-5"></i> <span>' + S.hotline + '</span></li>';
+      if (S.email) html += '<li><i class="fas fa-envelope text-amber-400 w-5"></i> <span>' + S.email + '</span></li>';
+      html += '<li><i class="fas fa-globe text-amber-400 w-5"></i> ezservice.com.vn</li>';
+      footerContact.innerHTML = html;
+    }
+
+    // Links
+    if (phone) {
+      ['headerCta','mobileCall','floatPhone'].forEach(id => { const el=document.getElementById(id); if(el) el.href='tel:'+phone; });
+    }
+    if (zalo) {
+      ['heroZalo','floatZalo'].forEach(id => { const el=document.getElementById(id); if(el) el.href='https://zalo.me/'+zalo; });
+    }
+
+    // STATS
+    const sg = document.getElementById('statsGrid');
+    if (sg && S.stats) sg.innerHTML = S.stats.map(s =>
+      '<div class="reveal text-center py-7 px-5 bg-gradient-to-b from-slate-50 to-white border border-slate-200 rounded-2xl hover:-translate-y-1.5 hover:shadow-xl hover:border-blue-300 transition-all">' +
+        '<div class="stat-num text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent" data-target="' + s.number + '">0</div>' +
+        '<div class="text-slate-500 text-sm font-semibold mt-1.5">' + s.label + '</div>' +
+      '</div>'
+    ).join('');
+
+    // SERVICES
+    const svg = document.getElementById('servicesGrid');
+    if (svg && S.services) svg.innerHTML = S.services.map((s,i) => {
+      const g = s.color === 'green';
+      return '<div class="service-card ' + (g?'green':'') + ' reveal relative bg-white border border-slate-200 rounded-3xl p-9 hover:-translate-y-2 hover:shadow-2xl transition-all duration-500 overflow-hidden" style="transition-delay:' + (i*0.1) + 's">' +
+        '<div class="flex items-start gap-4 mb-6">' +
+          '<div class="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl shrink-0 ' + (g?'bg-emerald-50 text-emerald-600':'bg-blue-50 text-blue-600') + '"><i class="fas ' + s.icon + '"></i></div>' +
+          '<div><div class="text-xl font-extrabold mb-1">' + s.title + '</div><div class="text-slate-500 text-sm font-semibold">' + s.subtitle + '</div></div>' +
+        '</div>' +
+        '<ul class="space-y-3 mb-6">' + (s.items||[]).map(x => '<li class="flex gap-3 text-slate-600 text-[15px]"><i class="fas fa-check-circle text-emerald-500 mt-0.5"></i><span>' + x + '</span></li>').join('') + '</ul>' +
+        '<a href="#contact" class="inline-flex items-center gap-2 font-bold text-sm ' + (g?'text-emerald-600':'text-blue-600') + ' hover:gap-3.5 transition-all">Tư vấn dịch vụ này <i class="fas fa-arrow-right"></i></a>' +
+      '</div>';
+    }).join('');
+
+    // CASES
+    const cg = document.getElementById('casesGrid');
+    if (cg && S.cases) cg.innerHTML = S.cases.map((c,i) =>
+      '<div class="reveal bg-white/5 border border-white/10 rounded-3xl overflow-hidden hover:-translate-y-2 hover:border-amber-400/40 hover:shadow-2xl transition-all duration-500" style="transition-delay:' + (i*0.1) + 's">' +
+        '<div class="aspect-[16/10] bg-gradient-to-br from-blue-500/30 to-amber-500/20 flex items-center justify-center text-5xl text-white/40 relative overflow-hidden">' +
+          (c.image ? '<img src="' + c.image + '" class="w-full h-full object-cover" loading="lazy" alt="' + c.title + '">' : '<i class="fas fa-folder-open"></i>') +
+          (c.tag ? '<div class="absolute top-4 left-4 px-3 py-1.5 bg-amber-500 text-amber-950 text-[11px] font-bold rounded-full uppercase tracking-wider">' + c.tag + '</div>' : '') +
+        '</div>' +
+        '<div class="p-6">' +
+          '<div class="text-lg font-bold mb-2">' + c.title + '</div>' +
+          '<div class="text-slate-400 text-sm leading-relaxed mb-4">' + c.description + '</div>' +
+          '<div class="flex justify-between text-xs text-slate-400 pt-4 border-t border-white/10">' +
+            '<span><i class="fas fa-clock text-amber-400 mr-1.5"></i>' + (c.duration||'') + '</span>' +
+            '<span><i class="fas fa-check text-amber-400 mr-1.5"></i>' + (c.result||'') + '</span>' +
+          '</div>' +
+        '</div>' +
+      '</div>'
+    ).join('');
+
+    // PROCESS
+    const pg = document.getElementById('processGrid');
+    if (pg && S.process) pg.innerHTML = S.process.map((p,i) =>
+      '<div class="reveal bg-slate-50 border border-slate-200 rounded-3xl p-9 hover:bg-white hover:-translate-y-1.5 hover:shadow-2xl transition-all" style="transition-delay:' + (i*0.15) + 's">' +
+        '<div class="text-7xl font-extrabold leading-none bg-gradient-to-br from-blue-400 to-blue-600 bg-clip-text text-transparent opacity-40 mb-4">' + p.step + '</div>' +
+        '<div class="text-xl font-bold mb-3">' + p.title + '</div>' +
+        '<div class="text-slate-500 leading-relaxed">' + p.desc + '</div>' +
+      '</div>'
+    ).join('');
+
+    // TESTIMONIALS
+    const tg = document.getElementById('testimonialsGrid');
+    if (tg && S.testimonials) tg.innerHTML = S.testimonials.map((t,i) =>
+      '<div class="reveal bg-white/5 border border-white/10 rounded-3xl p-8 hover:-translate-y-1.5 hover:bg-white/[.08] transition-all" style="transition-delay:' + (i*0.1) + 's">' +
+        '<div class="flex gap-1 text-amber-400 mb-5 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>' +
+        '<div class="text-slate-300 italic leading-relaxed mb-6">"' + t.text + '"</div>' +
+        '<div class="flex items-center gap-3.5">' +
+          '<div class="w-12 h-12 rounded-full bg-gradient-to-br from-amber-500 to-amber-400 flex items-center justify-center font-extrabold text-amber-950">' + (t.name||'?').charAt(0) + '</div>' +
+          '<div><div class="font-bold text-[15px]">' + t.name + '</div><div class="text-slate-400 text-sm">' + t.role + '</div></div>' +
+        '</div>' +
+      '</div>'
+    ).join('');
+
+    // CONTACT CTA
+    const ccg = document.getElementById('contactCtaGrid');
+    if (ccg) {
+      let html = '';
+      if (phone) html += '<a href="tel:' + phone + '" class="reveal bg-white border border-slate-200 rounded-3xl p-8 text-center hover:-translate-y-1.5 hover:shadow-xl hover:border-blue-300 transition-all"><div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-500 flex items-center justify-center text-white text-2xl"><i class="fas fa-phone-alt"></i></div><div class="font-bold mb-1.5">Gọi điện</div><div class="text-slate-500 text-sm">' + (S.hotline||'') + '</div></a>';
+      if (zalo) html += '<a href="https://zalo.me/' + zalo + '" target="_blank" class="reveal bg-white border border-slate-200 rounded-3xl p-8 text-center hover:-translate-y-1.5 hover:shadow-xl hover:border-blue-300 transition-all"><div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-cyan-500 to-cyan-400 flex items-center justify-center text-white text-2xl"><i class="fas fa-comment-dots"></i></div><div class="font-bold mb-1.5">Chat Zalo</div><div class="text-slate-500 text-sm">Phản hồi nhanh</div></a>';
+      if (email) html += '<a href="mailto:' + email + '" class="reveal bg-white border border-slate-200 rounded-3xl p-8 text-center hover:-translate-y-1.5 hover:shadow-xl hover:border-blue-300 transition-all"><div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-400 flex items-center justify-center text-white text-2xl"><i class="fas fa-envelope"></i></div><div class="font-bold mb-1.5">Email</div><div class="text-slate-500 text-sm break-all">' + email + '</div></a>';
+      ccg.innerHTML = html;
+    }
+
+    // CONTACT LIST
+    const cl = document.getElementById('contactList');
+    if (cl) {
+      let html = '';
+      if (phone) html += '<a href="tel:' + phone + '" class="flex items-center gap-4 p-4 bg-white border border-slate-200 rounded-2xl hover:border-blue-400 hover:translate-x-1.5 hover:shadow-md transition-all"><i class="fas fa-phone-alt text-blue-600 text-lg w-6"></i><div><div class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Hotline</div><div class="font-bold">' + (S.hotline||'') + '</div></div></a>';
+      if (email) html += '<a href="mailto:' + email + '" class="flex items-center gap-4 p-4 bg-white border border-slate-200 rounded-2xl hover:border-blue-400 hover:translate-x-1.5 hover:shadow-md transition-all"><i class="fas fa-envelope text-blue-600 text-lg w-6"></i><div><div class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Email</div><div class="font-bold break-all">' + email + '</div></div></a>';
+      if (S.address) html += '<div class="flex items-center gap-4 p-4 bg-white border border-slate-200 rounded-2xl"><i class="fas fa-map-marker-alt text-blue-600 text-lg w-6"></i><div><div class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Địa chỉ</div><div class="font-bold">' + S.address + '</div></div></div>';
+      cl.innerHTML = html;
     }
   }
 
-  // FOOTER CONTACT
-  const footerContact = document.getElementById('footerContact');
-  if (footerContact) {
-    let html = '';
-    if (S.hotline) html += `<li><i class="fas fa-phone-alt text-amber-400 w-5"></i> <span>${S.hotline}</span></li>`;
-    if (S.email) html += `<li><i class="fas fa-envelope text-amber-400 w-5"></i> <span>${S.email}</span></li>`;
-    html += `<li><i class="fas fa-globe text-amber-400 w-5"></i> ezservice.com.vn</li>`;
-    footerContact.innerHTML = html;
+  function initEffects() {
+    const y = document.getElementById('year');
+    if (y) y.textContent = new Date().getFullYear();
+
+    setTimeout(hideLoader, 400);
+    // Backup: luôn ẩn loader sau 3 giây dù có lỗi gì
+    setTimeout(hideLoader, 3000);
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); io.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    const cio = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const el = e.target;
+          const t = el.dataset.target;
+          const m = t.match(/(\d+)/);
+          if (!m) { el.textContent = t; return; }
+          const end = parseInt(m[1]);
+          const pre = t.split(m[1])[0], suf = t.split(m[1])[1];
+          let cur = 0; const step = Math.max(1, Math.ceil(end/40));
+          const tm = setInterval(() => {
+            cur += step;
+            if (cur >= end) { cur = end; clearInterval(tm); }
+            el.textContent = pre + cur + suf;
+          }, 25);
+          cio.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.stat-num').forEach(c => cio.observe(c));
+
+    const header = document.getElementById('siteHeader');
+    if (header) window.addEventListener('scroll', () => header.classList.toggle('shadow-md', window.scrollY > 30));
+
+    const mm = document.getElementById('mobileMenu');
+    const mt = document.getElementById('mobileToggle');
+    const mc = document.getElementById('mobileClose');
+    if (mt && mm) mt.onclick = () => mm.classList.remove('translate-x-full');
+    if (mc && mm) mc.onclick = () => mm.classList.add('translate-x-full');
+    if (mm) mm.querySelectorAll('a').forEach(a => a.onclick = () => mm.classList.add('translate-x-full'));
   }
 
-  // Links
-  if (phone) {
-    ['headerCta','mobileCall','floatPhone'].forEach(id => { const el=document.getElementById(id); if(el) el.href='tel:'+phone; });
-  } else {
-    const hc = document.getElementById('headerCta'); if (hc) hc.style.display = 'none';
-  }
-  if (zalo) {
-    ['heroZalo','floatZalo'].forEach(id => { const el=document.getElementById(id); if(el) el.href='https://zalo.me/'+zalo; });
-  } else {
-    const hz = document.getElementById('heroZalo'); if (hz) hz.style.display = 'none';
-    const fz = document.getElementById('floatZalo'); if (fz) fz.style.display = 'none';
+  // ===== MAIN =====
+  // Bước 1: Render ngay với dữ liệu mặc định (đảm bảo trang không bao giờ trắng)
+  try {
+    renderAll(window.DEFAULT_DATA);
+    initEffects();
+  } catch (e) {
+    console.error('Lỗi render mặc định:', e);
+    hideLoader();
   }
 
-  // STATS
-  const sg = document.getElementById('statsGrid');
-  if (sg && S.stats) sg.innerHTML = S.stats.map(s => `
-    <div class="reveal text-center py-7 px-5 bg-gradient-to-b from-slate-50 to-white border border-slate-200 rounded-2xl hover:-translate-y-1.5 hover:shadow-xl hover:border-blue-300 transition-all">
-      <div class="stat-num text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent" data-target="${s.number}">0</div>
-      <div class="text-slate-500 text-sm font-semibold mt-1.5">${s.label}</div>
-    </div>`).join('');
-
-  // SERVICES
-  const svg = document.getElementById('servicesGrid');
-  if (svg) svg.innerHTML = SE.items.map((s,i) => {
-    const g = s.color==='green';
-    return `<div class="service-card ${g?'green':''} reveal relative bg-white border border-slate-200 rounded-3xl p-9 hover:-translate-y-2 hover:shadow-2xl transition-all duration-500 overflow-hidden" style="transition-delay:${i*0.1}s">
-      <div class="flex items-start gap-4 mb-6">
-        <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl shrink-0 ${g?'bg-emerald-50 text-emerald-600':'bg-blue-50 text-blue-600'}"><i class="fas ${s.icon}"></i></div>
-        <div><div class="text-xl font-extrabold mb-1">${s.title}</div><div class="text-slate-500 text-sm font-semibold">${s.subtitle}</div></div>
-      </div>
-      <ul class="space-y-3 mb-6">${(s.items||[]).map(x=>`<li class="flex gap-3 text-slate-600 text-[15px]"><i class="fas fa-check-circle text-emerald-500 mt-0.5"></i><span>${x}</span></li>`).join('')}</ul>
-      <a href="#contact" class="inline-flex items-center gap-2 font-bold text-sm ${g?'text-emerald-600':'text-blue-600'} hover:gap-3.5 transition-all">Tư vấn dịch vụ này <i class="fas fa-arrow-right"></i></a>
-    </div>`;
-  }).join('');
-
-  // CASES
-  const cg = document.getElementById('casesGrid');
-  if (cg) cg.innerHTML = CA.items.map((c,i) => `
-    <div class="reveal bg-white/5 border border-white/10 rounded-3xl overflow-hidden hover:-translate-y-2 hover:border-amber-400/40 hover:shadow-2xl transition-all duration-500" style="transition-delay:${i*0.1}s">
-      <div class="aspect-[16/10] bg-gradient-to-br from-blue-500/30 to-amber-500/20 flex items-center justify-center text-5xl text-white/40 relative overflow-hidden">
-        ${c.image?`<img src="${c.image}" class="w-full h-full object-cover" loading="lazy" alt="${c.title}">`:'<i class="fas fa-folder-open"></i>'}
-        ${c.tag?`<div class="absolute top-4 left-4 px-3 py-1.5 bg-amber-500 text-amber-950 text-[11px] font-bold rounded-full uppercase tracking-wider">${c.tag}</div>`:''}
-      </div>
-      <div class="p-6">
-        <div class="text-lg font-bold mb-2">${c.title}</div>
-        <div class="text-slate-400 text-sm leading-relaxed mb-4">${c.description}</div>
-        <div class="flex justify-between text-xs text-slate-400 pt-4 border-t border-white/10">
-          <span><i class="fas fa-clock text-amber-400 mr-1.5"></i>${c.duration||''}</span>
-          <span><i class="fas fa-check text-amber-400 mr-1.5"></i>${c.result||''}</span>
-        </div>
-      </div>
-    </div>`).join('');
-
-  // PROCESS
-  const pg = document.getElementById('processGrid');
-  if (pg && S.process) pg.innerHTML = S.process.map((p,i) => `
-    <div class="reveal bg-slate-50 border border-slate-200 rounded-3xl p-9 hover:bg-white hover:-translate-y-1.5 hover:shadow-2xl transition-all" style="transition-delay:${i*0.15}s">
-      <div class="text-7xl font-extrabold leading-none bg-gradient-to-br from-blue-400 to-blue-600 bg-clip-text text-transparent opacity-40 mb-4">${p.step}</div>
-      <div class="text-xl font-bold mb-3">${p.title}</div>
-      <div class="text-slate-500 leading-relaxed">${p.desc}</div>
-    </div>`).join('');
-
-  // TESTIMONIALS
-  const tg = document.getElementById('testimonialsGrid');
-  if (tg) tg.innerHTML = TE.items.map((t,i) => `
-    <div class="reveal bg-white/5 border border-white/10 rounded-3xl p-8 hover:-translate-y-1.5 hover:bg-white/[.08] transition-all" style="transition-delay:${i*0.1}s">
-      <div class="flex gap-1 text-amber-400 mb-5 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-      <div class="text-slate-300 italic leading-relaxed mb-6">"${t.text}"</div>
-      <div class="flex items-center gap-3.5">
-        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-amber-500 to-amber-400 flex items-center justify-center font-extrabold text-amber-950">${(t.name||'?').charAt(0)}</div>
-        <div><div class="font-bold text-[15px]">${t.name}</div><div class="text-slate-400 text-sm">${t.role}</div></div>
-      </div>
-    </div>`).join('');
-
-  // CONTACT CTA
-  const ccg = document.getElementById('contactCtaGrid');
-  if (ccg) {
-    let html = '';
-    if (phone) html += `<a href="tel:${phone}" class="reveal bg-white border border-slate-200 rounded-3xl p-8 text-center hover:-translate-y-1.5 hover:shadow-xl hover:border-blue-300 transition-all">
-      <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-500 flex items-center justify-center text-white text-2xl"><i class="fas fa-phone-alt"></i></div>
-      <div class="font-bold mb-1.5">Gọi điện</div><div class="text-slate-500 text-sm">${S.hotline||''}</div></a>`;
-    if (zalo) html += `<a href="https://zalo.me/${zalo}" target="_blank" class="reveal bg-white border border-slate-200 rounded-3xl p-8 text-center hover:-translate-y-1.5 hover:shadow-xl hover:border-blue-300 transition-all">
-      <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-cyan-500 to-cyan-400 flex items-center justify-center text-white text-2xl"><i class="fas fa-comment-dots"></i></div>
-      <div class="font-bold mb-1.5">Chat Zalo</div><div class="text-slate-500 text-sm">Phản hồi nhanh</div></a>`;
-    if (email) html += `<a href="mailto:${email}" class="reveal bg-white border border-slate-200 rounded-3xl p-8 text-center hover:-translate-y-1.5 hover:shadow-xl hover:border-blue-300 transition-all">
-      <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-400 flex items-center justify-center text-white text-2xl"><i class="fas fa-envelope"></i></div>
-      <div class="font-bold mb-1.5">Email</div><div class="text-slate-500 text-sm break-all">${email}</div></a>`;
-    ccg.innerHTML = html;
-  }
-
-  // CONTACT LIST
-  const cl = document.getElementById('contactList');
-  if (cl) {
-    let html = '';
-    if (phone) html += `<a href="tel:${phone}" class="flex items-center gap-4 p-4 bg-white border border-slate-200 rounded-2xl hover:border-blue-400 hover:translate-x-1.5 hover:shadow-md transition-all">
-      <i class="fas fa-phone-alt text-blue-600 text-lg w-6"></i>
-      <div><div class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Hotline</div><div class="font-bold">${S.hotline||''}</div></div></a>`;
-    if (email) html += `<a href="mailto:${email}" class="flex items-center gap-4 p-4 bg-white border border-slate-200 rounded-2xl hover:border-blue-400 hover:translate-x-1.5 hover:shadow-md transition-all">
-      <i class="fas fa-envelope text-blue-600 text-lg w-6"></i>
-      <div><div class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Email</div><div class="font-bold break-all">${email}</div></div></a>`;
-    if (S.address) html += `<div class="flex items-center gap-4 p-4 bg-white border border-slate-200 rounded-2xl">
-      <i class="fas fa-map-marker-alt text-blue-600 text-lg w-6"></i>
-      <div><div class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Địa chỉ</div><div class="font-bold">${S.address}</div></div></div>`;
-    cl.innerHTML = html;
-  }
-
-  // HIỆU ỨNG
-  document.getElementById('year').textContent = new Date().getFullYear();
-  setTimeout(() => { const l = document.getElementById('loader'); if (l) l.classList.add('hidden'); }, 500);
-
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); io.unobserve(e.target); } });
-  }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-  const cio = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        const el = e.target;
-        const t = el.dataset.target;
-        const m = t.match(/(\d+)/);
-        if (!m) { el.textContent = t; return; }
-        const end = parseInt(m[1]);
-        const pre = t.split(m[1])[0], suf = t.split(m[1])[1];
-        let cur = 0; const step = Math.max(1, Math.ceil(end/40));
-        const tm = setInterval(() => {
-          cur += step;
-          if (cur >= end) { cur = end; clearInterval(tm); }
-          el.textContent = pre + cur + suf;
-        }, 25);
-        cio.unobserve(el);
+  // Bước 2: Thử load từ Supabase (nếu được thì ghi đè)
+  (async function loadFromSupabase() {
+    try {
+      if (typeof supabase === 'undefined') {
+        console.warn('Supabase SDK chưa load, dùng dữ liệu mặc định');
+        return;
       }
-    });
-  }, { threshold: 0.5 });
-  document.querySelectorAll('.stat-num').forEach(c => cio.observe(c));
+      // Load Supabase SDK động
+      await new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+        s.onload = resolve;
+        s.onerror = reject;
+        document.head.appendChild(s);
+      });
 
-  const header = document.getElementById('siteHeader');
-  if (header) window.addEventListener('scroll', () => header.classList.toggle('shadow-md', window.scrollY > 30));
+      const sb = window.supabase.createClient(
+        'https://aymsipswqatwngebxkra.supabase.co',
+        'sb_publishable_Nb_n7SCkEXFutGm6q-c-iA_TgTNMTpi'
+      );
 
-  const mm = document.getElementById('mobileMenu');
-  const mt = document.getElementById('mobileToggle');
-  const mc = document.getElementById('mobileClose');
-  if (mt && mm) mt.onclick = () => mm.classList.remove('translate-x-full');
-  if (mc && mm) mc.onclick = () => mm.classList.add('translate-x-full');
-  if (mm) mm.querySelectorAll('a').forEach(a => a.onclick = () => mm.classList.add('translate-x-full'));
+      const { data, error } = await sb.from('site_settings').select('content').eq('id', 1).single();
+      if (error || !data || !data.content) {
+        console.warn('Không load được Supabase, giữ dữ liệu mặc định');
+        return;
+      }
+
+      // Ghi đè bằng dữ liệu từ Supabase
+      const S = data.content;
+      // Nếu content rỗng {}, giữ nguyên mặc định
+      if (Object.keys(S).length === 0) return;
+
+      // Merge: ưu tiên dữ liệu Supabase, fallback mặc định cho field thiếu
+      const merged = Object.assign({}, window.DEFAULT_DATA, S);
+      if (!merged.services || merged.services.length === 0) merged.services = window.DEFAULT_DATA.services;
+      if (!merged.cases || merged.cases.length === 0) merged.cases = window.DEFAULT_DATA.cases;
+      if (!merged.testimonials || merged.testimonials.length === 0) merged.testimonials = window.DEFAULT_DATA.testimonials;
+      if (!merged.stats || merged.stats.length === 0) merged.stats = window.DEFAULT_DATA.stats;
+      if (!merged.process || merged.process.length === 0) merged.process = window.DEFAULT_DATA.process;
+
+      renderAll(merged);
+      initEffects();
+    } catch (e) {
+      console.warn('Supabase load lỗi, giữ dữ liệu mặc định:', e);
+    }
+  })();
 })();
 </script>
 </body>
