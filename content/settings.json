@@ -1,0 +1,21 @@
+{
+  "brand_name": "Ez Service",
+  "tagline": "Dễ dàng hơn bạn nghĩ",
+  "hotline": "0938 267 586",
+  "hotline_raw": "0938267586",
+  "zalo": "0938267586",
+  "email": "info@ezservice.com.vn",
+  "address": "Tân Tâm - Nhanh chóng - Hiệu quả",
+  "footer_description": "Dịch vụ Visa, Giấy phép lao động, Thẻ tạm trú và Thủ tục doanh nghiệp.",
+  "stats": [
+    { "number": "500+", "label": "Hồ sơ thành công" },
+    { "number": "5+", "label": "Năm kinh nghiệm" },
+    { "number": "98%", "label": "Khách hàng hài lòng" },
+    { "number": "24/7", "label": "Hỗ trợ khẩn cấp" }
+  ],
+  "process": [
+    { "step": "01", "title": "Tư vấn", "desc": "Liên hệ, mô tả nhu cầu. Tôi sẽ tư vấn miễn phí và báo giá rõ ràng." },
+    { "step": "02", "title": "Xử lý hồ sơ", "desc": "Bạn cung cấp giấy tờ. Tôi chuẩn bị, kiểm tra và nộp hồ sơ đúng quy định." },
+    { "step": "03", "title": "Nhận kết quả", "desc": "Theo dõi tiến độ, nhận kết quả tận tay. Hỗ trợ sau khi hoàn thành." }
+  ]
+}
