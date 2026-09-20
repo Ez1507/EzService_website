@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "title": "GPLĐ cho chuyên gia Hàn Quốc",
+      "description": "Hỗ trợ công ty TNHH ABC hoàn thiện hồ sơ cấp mới giấy phép lao động cho chuyên gia kỹ thuật người Hàn Quốc.",
+      "tag": "Giấy phép lao động",
+      "duration": "14 ngày",
+      "result": "Thành công",
+      "image": ""
+    },
+    {
+      "title": "Thành lập Công ty TNHH",
+      "description": "Tư vấn và thành lập công ty TNHH một thành viên cho khách hàng cá nhân, vốn điều lệ 2 tỷ đồng.",
+      "tag": "Thành lập DN",
+      "duration": "7 ngày",
+      "result": "Thành công",
+      "image": ""
+    },
+    {
+      "title": "Visa DN cho đối tác Nhật",
+      "description": "Xử lý công văn nhập cảnh và visa DN cho 3 chuyên gia người Nhật sang công tác tại Việt Nam trong 1 tháng.",
+      "tag": "Visa",
+      "duration": "5 ngày",
+      "result": "Thành công",
+      "image": ""
+    }
+  ]
+}
