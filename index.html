@@ -38,12 +38,10 @@
   </div>
 </div>
 
-<div class="hidden md:block bg-[#0b1220] text-slate-300 text-sm py-2.5">
+<!-- TOP BAR -->
+<div id="topbar" class="hidden bg-[#0b1220] text-slate-300 text-sm py-2.5">
   <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
-    <div class="flex gap-6">
-      <span><i class="fas fa-phone-alt text-amber-400 mr-2"></i><span data-config="hotline"></span></span>
-      <span><i class="fas fa-envelope text-amber-400 mr-2"></i><span data-config="email"></span></span>
-    </div>
+    <div class="flex gap-6" id="topbarContact"></div>
     <div class="inline-flex items-center gap-2 bg-emerald-500/15 text-emerald-300 px-3 py-1 rounded-full text-xs font-semibold">
       <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full dot-pulse"></span> Đang nhận hồ sơ mới
     </div>
@@ -217,14 +215,14 @@
     </div>
     <div>
       <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Liên hệ</h4>
-      <ul class="space-y-2.5 text-sm">
-        <li><i class="fas fa-phone-alt text-amber-400 w-5"></i> <span data-config="hotline"></span></li>
-        <li><i class="fas fa-envelope text-amber-400 w-5"></i> <span data-config="email"></span></li>
-        <li><i class="fas fa-globe text-amber-400 w-5"></i> ezservice.com.vn</li>
-      </ul>
+      <ul class="space-y-2.5 text-sm" id="footerContact"></ul>
     </div>
   </div>
-  <div class="border-t border-white/10 py-6 text-center text-sm">© <span id="year"></span> <span data-config="brand_name"></span>. All rights reserved.</div>
+  <!-- Nút quản trị ẩn -->
+  <div class="border-t border-white/10 py-6 text-center text-sm flex items-center justify-center gap-4">
+    <span>© <span id="year"></span> <span data-config="brand_name"></span>. All rights reserved.</span>
+    <a href="/admin.html" class="text-white/15 hover:text-amber-400 transition-colors duration-300 text-xs" title="Quản trị"><i class="fas fa-lock"></i></a>
+  </div>
 </footer>
 
 <div class="fixed bottom-6 right-6 flex flex-col gap-3 z-40">
@@ -273,9 +271,44 @@
   const zalo = S.zalo || phone;
   const email = S.email || '';
 
-  ['headerCta','mobileCall','floatPhone'].forEach(id => { const el=document.getElementById(id); if(el&&phone) el.href='tel:'+phone; });
-  ['heroZalo','floatZalo'].forEach(id => { const el=document.getElementById(id); if(el&&zalo) el.href='https://zalo.me/'+zalo; });
+  // TOP BAR
+  const topbarEl = document.getElementById('topbar');
+  const topbarContact = document.getElementById('topbarContact');
+  if (topbarEl && topbarContact) {
+    let html = '';
+    if (S.hotline) html += `<span><i class="fas fa-phone-alt text-amber-400 mr-2"></i>${S.hotline}</span>`;
+    if (S.email) html += `<span><i class="fas fa-envelope text-amber-400 mr-2"></i>${S.email}</span>`;
+    if (html) {
+      topbarContact.innerHTML = html;
+      topbarEl.classList.remove('hidden');
+      topbarEl.classList.add('md:block');
+    }
+  }
 
+  // FOOTER CONTACT
+  const footerContact = document.getElementById('footerContact');
+  if (footerContact) {
+    let html = '';
+    if (S.hotline) html += `<li><i class="fas fa-phone-alt text-amber-400 w-5"></i> <span>${S.hotline}</span></li>`;
+    if (S.email) html += `<li><i class="fas fa-envelope text-amber-400 w-5"></i> <span>${S.email}</span></li>`;
+    html += `<li><i class="fas fa-globe text-amber-400 w-5"></i> ezservice.com.vn</li>`;
+    footerContact.innerHTML = html;
+  }
+
+  // Links
+  if (phone) {
+    ['headerCta','mobileCall','floatPhone'].forEach(id => { const el=document.getElementById(id); if(el) el.href='tel:'+phone; });
+  } else {
+    const hc = document.getElementById('headerCta'); if (hc) hc.style.display = 'none';
+  }
+  if (zalo) {
+    ['heroZalo','floatZalo'].forEach(id => { const el=document.getElementById(id); if(el) el.href='https://zalo.me/'+zalo; });
+  } else {
+    const hz = document.getElementById('heroZalo'); if (hz) hz.style.display = 'none';
+    const fz = document.getElementById('floatZalo'); if (fz) fz.style.display = 'none';
+  }
+
+  // STATS
   const sg = document.getElementById('statsGrid');
   if (sg && S.stats) sg.innerHTML = S.stats.map(s => `
     <div class="reveal text-center py-7 px-5 bg-gradient-to-b from-slate-50 to-white border border-slate-200 rounded-2xl hover:-translate-y-1.5 hover:shadow-xl hover:border-blue-300 transition-all">
@@ -283,6 +316,7 @@
       <div class="text-slate-500 text-sm font-semibold mt-1.5">${s.label}</div>
     </div>`).join('');
 
+  // SERVICES
   const svg = document.getElementById('servicesGrid');
   if (svg) svg.innerHTML = SE.items.map((s,i) => {
     const g = s.color==='green';
@@ -296,6 +330,7 @@
     </div>`;
   }).join('');
 
+  // CASES
   const cg = document.getElementById('casesGrid');
   if (cg) cg.innerHTML = CA.items.map((c,i) => `
     <div class="reveal bg-white/5 border border-white/10 rounded-3xl overflow-hidden hover:-translate-y-2 hover:border-amber-400/40 hover:shadow-2xl transition-all duration-500" style="transition-delay:${i*0.1}s">
@@ -313,6 +348,7 @@
       </div>
     </div>`).join('');
 
+  // PROCESS
   const pg = document.getElementById('processGrid');
   if (pg && S.process) pg.innerHTML = S.process.map((p,i) => `
     <div class="reveal bg-slate-50 border border-slate-200 rounded-3xl p-9 hover:bg-white hover:-translate-y-1.5 hover:shadow-2xl transition-all" style="transition-delay:${i*0.15}s">
@@ -321,6 +357,7 @@
       <div class="text-slate-500 leading-relaxed">${p.desc}</div>
     </div>`).join('');
 
+  // TESTIMONIALS
   const tg = document.getElementById('testimonialsGrid');
   if (tg) tg.innerHTML = TE.items.map((t,i) => `
     <div class="reveal bg-white/5 border border-white/10 rounded-3xl p-8 hover:-translate-y-1.5 hover:bg-white/[.08] transition-all" style="transition-delay:${i*0.1}s">
@@ -332,30 +369,39 @@
       </div>
     </div>`).join('');
 
+  // CONTACT CTA
   const ccg = document.getElementById('contactCtaGrid');
-  if (ccg) ccg.innerHTML = `
-    <a href="tel:${phone}" class="reveal bg-white border border-slate-200 rounded-3xl p-8 text-center hover:-translate-y-1.5 hover:shadow-xl hover:border-blue-300 transition-all">
+  if (ccg) {
+    let html = '';
+    if (phone) html += `<a href="tel:${phone}" class="reveal bg-white border border-slate-200 rounded-3xl p-8 text-center hover:-translate-y-1.5 hover:shadow-xl hover:border-blue-300 transition-all">
       <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-500 flex items-center justify-center text-white text-2xl"><i class="fas fa-phone-alt"></i></div>
-      <div class="font-bold mb-1.5">Gọi điện</div><div class="text-slate-500 text-sm">${S.hotline||''}</div></a>
-    <a href="https://zalo.me/${zalo}" target="_blank" class="reveal bg-white border border-slate-200 rounded-3xl p-8 text-center hover:-translate-y-1.5 hover:shadow-xl hover:border-blue-300 transition-all">
+      <div class="font-bold mb-1.5">Gọi điện</div><div class="text-slate-500 text-sm">${S.hotline||''}</div></a>`;
+    if (zalo) html += `<a href="https://zalo.me/${zalo}" target="_blank" class="reveal bg-white border border-slate-200 rounded-3xl p-8 text-center hover:-translate-y-1.5 hover:shadow-xl hover:border-blue-300 transition-all">
       <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-cyan-500 to-cyan-400 flex items-center justify-center text-white text-2xl"><i class="fas fa-comment-dots"></i></div>
-      <div class="font-bold mb-1.5">Chat Zalo</div><div class="text-slate-500 text-sm">Phản hồi nhanh</div></a>
-    <a href="mailto:${email}" class="reveal bg-white border border-slate-200 rounded-3xl p-8 text-center hover:-translate-y-1.5 hover:shadow-xl hover:border-blue-300 transition-all">
+      <div class="font-bold mb-1.5">Chat Zalo</div><div class="text-slate-500 text-sm">Phản hồi nhanh</div></a>`;
+    if (email) html += `<a href="mailto:${email}" class="reveal bg-white border border-slate-200 rounded-3xl p-8 text-center hover:-translate-y-1.5 hover:shadow-xl hover:border-blue-300 transition-all">
       <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-400 flex items-center justify-center text-white text-2xl"><i class="fas fa-envelope"></i></div>
       <div class="font-bold mb-1.5">Email</div><div class="text-slate-500 text-sm break-all">${email}</div></a>`;
+    ccg.innerHTML = html;
+  }
 
+  // CONTACT LIST
   const cl = document.getElementById('contactList');
-  if (cl) cl.innerHTML = `
-    <a href="tel:${phone}" class="flex items-center gap-4 p-4 bg-white border border-slate-200 rounded-2xl hover:border-blue-400 hover:translate-x-1.5 hover:shadow-md transition-all">
+  if (cl) {
+    let html = '';
+    if (phone) html += `<a href="tel:${phone}" class="flex items-center gap-4 p-4 bg-white border border-slate-200 rounded-2xl hover:border-blue-400 hover:translate-x-1.5 hover:shadow-md transition-all">
       <i class="fas fa-phone-alt text-blue-600 text-lg w-6"></i>
-      <div><div class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Hotline</div><div class="font-bold">${S.hotline||''}</div></div></a>
-    <a href="mailto:${email}" class="flex items-center gap-4 p-4 bg-white border border-slate-200 rounded-2xl hover:border-blue-400 hover:translate-x-1.5 hover:shadow-md transition-all">
+      <div><div class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Hotline</div><div class="font-bold">${S.hotline||''}</div></div></a>`;
+    if (email) html += `<a href="mailto:${email}" class="flex items-center gap-4 p-4 bg-white border border-slate-200 rounded-2xl hover:border-blue-400 hover:translate-x-1.5 hover:shadow-md transition-all">
       <i class="fas fa-envelope text-blue-600 text-lg w-6"></i>
-      <div><div class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Email</div><div class="font-bold break-all">${email}</div></div></a>
-    <div class="flex items-center gap-4 p-4 bg-white border border-slate-200 rounded-2xl">
+      <div><div class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Email</div><div class="font-bold break-all">${email}</div></div></a>`;
+    if (S.address) html += `<div class="flex items-center gap-4 p-4 bg-white border border-slate-200 rounded-2xl">
       <i class="fas fa-map-marker-alt text-blue-600 text-lg w-6"></i>
-      <div><div class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Địa chỉ</div><div class="font-bold">${S.address||''}</div></div></div>`;
+      <div><div class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Địa chỉ</div><div class="font-bold">${S.address}</div></div></div>`;
+    cl.innerHTML = html;
+  }
 
+  // HIỆU ỨNG
   document.getElementById('year').textContent = new Date().getFullYear();
   setTimeout(() => { const l = document.getElementById('loader'); if (l) l.classList.add('hidden'); }, 500);
 
