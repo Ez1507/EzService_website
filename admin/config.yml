@@ -2,7 +2,7 @@ backend:
   name: github
   repo: Ez1507/EzService_website
   branch: main
-  base_url: https://ezservice-oauth.YOUR-SUBDOMAIN.workers.dev
+  base_url: https://ezservice-oauth.hoangdeb751.workers.dev
   auth_endpoint: auth
 
 media_folder: "assets/uploads"
