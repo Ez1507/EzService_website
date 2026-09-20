@@ -1,521 +1,386 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ez Service - Visa, Giấy phép lao động & Thủ tục Doanh nghiệp</title>
-    <meta name="description" content="Dịch vụ Visa, Giấy phép lao động, Thẻ tạm trú cho người nước ngoài và Thủ tục thành lập, thay đổi doanh nghiệp. Nhanh chóng - Uy tín - Chi phí tối ưu.">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Plus Jakarta Sans (modern, professional) -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --brand-blue: #1e3a8a;
-            --brand-blue-light: #3b82f6;
-            --brand-gold: #f59e0b;
-            --brand-green: #059669;
-        }
-        
-        * {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            scroll-behavior: smooth;
-        }
-        
-        /* ===== ANIMATIONS ===== */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        @keyframes pulse-ring {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(1.5); opacity: 0; }
-        }
-        
-        .animate-fade-up {
-            animation: fadeInUp 0.8s ease-out forwards;
-        }
-        
-        .animate-float {
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        /* Scroll reveal */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* Hero gradient */
-        .hero-gradient {
-            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1e40af 100%);
-        }
-        
-        /* Card hover */
-        .service-card {
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-        }
-        
-        /* Floating buttons */
-        .float-btn {
-            position: relative;
-        }
-        
-        .float-btn::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 9999px;
-            animation: pulse-ring 2s ease-out infinite;
-        }
-        
-        /* Stats counter */
-        .stat-number {
-            font-variant-numeric: tabular-nums;
-        }
-        
-        /* Testimonial */
-        .testimonial-card {
-            transition: all 0.3s ease;
-        }
-        
-        .testimonial-card:hover {
-            transform: scale(1.02);
-        }
-        
-        /* Mobile nav */
-        .mobile-menu {
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
-        }
-        
-        .mobile-menu.open {
-            transform: translateX(0);
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ez Service – Visa, Giấy phép lao động & Thủ tục Doanh nghiệp</title>
+<meta name="description" content="Dịch vụ Visa, GPLĐ, Thẻ tạm trú và Thủ tục doanh nghiệp. Nhanh chóng - Uy tín - Chi phí tối ưu.">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  body { font-family: 'Manrope', sans-serif; }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-15px)} }
+  @keyframes pulse-dot { 0%{box-shadow:0 0 0 0 rgba(16,185,129,.7)} 70%{box-shadow:0 0 0 10px rgba(16,185,129,0)} 100%{box-shadow:0 0 0 0 rgba(16,185,129,0)} }
+  @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+  @keyframes ring { 0%,100%{transform:rotate(0)} 10%,30%{transform:rotate(-12deg)} 20%,40%{transform:rotate(12deg)} 50%{transform:rotate(0)} }
+  .reveal { opacity:0; transform: translateY(40px); transition: all .9s cubic-bezier(.16,1,.3,1); }
+  .reveal.active { opacity:1; transform: translateY(0); }
+  .orb { position:absolute; border-radius:50%; filter:blur(80px); opacity:.35; animation: float 12s ease-in-out infinite; }
+  .grid-overlay { background-image: linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px), linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px); background-size:50px 50px; }
+  .marquee-track { animation: marquee 30s linear infinite; }
+  .floater-phone { animation: ring 2s ease-in-out infinite; }
+  .dot-pulse { animation: pulse-dot 2s infinite; }
+  .service-card::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,#2563eb,#3b82f6); transform: scaleX(0); transform-origin:left; transition: transform .5s; }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card.green::before { background: linear-gradient(90deg,#10b981,#34d399); }
+  .loader { position:fixed; inset:0; z-index:9999; background:#0b1220; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px; transition: opacity .6s, visibility .6s; }
+  .loader.hidden { opacity:0; visibility:hidden; }
+</style>
 </head>
-<body class="bg-white text-gray-800 antialiased">
+<body class="bg-white text-slate-900 antialiased">
 
-    <!-- ===== TOP BAR ===== -->
-    <div class="bg-[#0f172a] text-white text-sm py-2 px-4 hidden md:block">
-        <div class="container mx-auto max-w-6xl flex justify-between items-center">
-            <div class="flex items-center gap-6">
-                <span><i class="fas fa-phone-alt mr-2 text-[#f59e0b]"></i> <span id="top-phone">0938 267 586</span></span>
-                <span><i class="fas fa-envelope mr-2 text-[#f59e0b]"></i> <span id="top-email">info@ezservice.com.vn</span></span>
-            </div>
-            <div class="flex items-center gap-4">
-                <a href="#" class="hover:text-[#f59e0b] transition"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="hover:text-[#f59e0b] transition"><i class="fab fa-zalo"></i></a>
-                <span class="text-gray-400">|</span>
-                <span class="text-[#f59e0b] font-semibold">Tư vấn miễn phí 24/7</span>
-            </div>
-        </div>
+<div id="loader" class="loader">
+  <div class="text-6xl font-extrabold bg-gradient-to-r from-blue-500 to-amber-400 bg-clip-text text-transparent">Ez</div>
+  <div class="w-48 h-1 bg-white/10 rounded overflow-hidden">
+    <div class="h-full w-2/5 bg-gradient-to-r from-blue-500 to-amber-400 rounded" style="animation: marquee 1.5s linear infinite alternate"></div>
+  </div>
+</div>
+
+<div class="hidden md:block bg-[#0b1220] text-slate-300 text-sm py-2.5">
+  <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
+    <div class="flex gap-6">
+      <span><i class="fas fa-phone-alt text-amber-400 mr-2"></i><span data-config="hotline"></span></span>
+      <span><i class="fas fa-envelope text-amber-400 mr-2"></i><span data-config="email"></span></span>
     </div>
-
-    <!-- ===== HEADER ===== -->
-    <header class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100">
-        <div class="container mx-auto max-w-6xl px-4 py-4 flex justify-between items-center">
-            <!-- Logo -->
-            <a href="#" class="flex items-center gap-2">
-                <div class="w-10 h-10 bg-gradient-to-br from-[#1e3a8a] to-[#3b82f6] rounded-xl flex items-center justify-center text-white font-extrabold text-xl shadow-lg">Ez</div>
-                <div>
-                    <div class="text-xl font-extrabold text-[#0f172a] tracking-tight" id="brand-name">Ez Service</div>
-                    <div class="text-[10px] text-gray-500 tracking-widest uppercase" id="brand-tagline">Dễ dàng hơn bạn nghĩ</div>
-                </div>
-            </a>
-            
-            <!-- Desktop Nav -->
-            <nav class="hidden md:flex items-center gap-8 font-semibold text-gray-600">
-                <a href="#services" class="hover:text-[#1e3a8a] transition">Dịch vụ</a>
-                <a href="#process" class="hover:text-[#1e3a8a] transition">Quy trình</a>
-                <a href="#testimonials" class="hover:text-[#1e3a8a] transition">Đánh giá</a>
-                <a href="#contact" class="hover:text-[#1e3a8a] transition">Liên hệ</a>
-            </nav>
-            
-            <!-- CTA -->
-            <a href="tel:0938267586" id="header-phone-btn" class="hidden md:flex items-center gap-2 bg-gradient-to-r from-[#1e3a8a] to-[#3b82f6] text-white px-5 py-2.5 rounded-full font-bold hover:shadow-lg hover:shadow-blue-200 transition-all duration-300">
-                <i class="fas fa-phone-alt"></i> Gọi ngay
-            </a>
-            
-            <!-- Mobile menu button -->
-            <button onclick="document.getElementById('mobileMenu').classList.toggle('open')" class="md:hidden text-2xl text-[#1e3a8a]">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-    </header>
-
-    <!-- Mobile Menu -->
-    <div id="mobileMenu" class="mobile-menu fixed inset-y-0 right-0 w-72 bg-white shadow-2xl z-[60] p-6 md:hidden">
-        <button onclick="document.getElementById('mobileMenu').classList.remove('open')" class="absolute top-4 right-4 text-2xl text-gray-400">
-            <i class="fas fa-times"></i>
-        </button>
-        <div class="mt-12 flex flex-col gap-6 font-semibold text-lg">
-            <a href="#services" onclick="document.getElementById('mobileMenu').classList.remove('open')">Dịch vụ</a>
-            <a href="#process" onclick="document.getElementById('mobileMenu').classList.remove('open')">Quy trình</a>
-            <a href="#testimonials" onclick="document.getElementById('mobileMenu').classList.remove('open')">Đánh giá</a>
-            <a href="#contact" onclick="document.getElementById('mobileMenu').classList.remove('open')">Liên hệ</a>
-            <a href="tel:0938267586" id="mobile-phone-btn" class="bg-[#1e3a8a] text-white text-center py-3 rounded-xl mt-4">Gọi ngay</a>
-        </div>
+    <div class="inline-flex items-center gap-2 bg-emerald-500/15 text-emerald-300 px-3 py-1 rounded-full text-xs font-semibold">
+      <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full dot-pulse"></span> Đang nhận hồ sơ mới
     </div>
+  </div>
+</div>
 
-    <!-- ===== HERO SECTION ===== -->
-    <section class="hero-gradient text-white relative overflow-hidden">
-        <!-- Decorative elements -->
-        <div class="absolute top-20 left-10 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-10 right-10 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl"></div>
-        <div class="absolute top-1/2 left-1/2 w-64 h-64 bg-[#f59e0b]/10 rounded-full blur-3xl"></div>
-        
-        <div class="container mx-auto max-w-6xl px-4 py-24 md:py-32 relative z-10">
-            <div class="max-w-3xl">
-                <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 text-sm mb-8 animate-fade-up">
-                    <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                    <span>Đang nhận hồ sơ mới</span>
-                </div>
-                
-                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6 animate-fade-up" style="animation-delay: 0.1s">
-                    Thủ tục hành chính <br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#f59e0b] to-yellow-300">dễ dàng hơn bạn nghĩ</span>
-                </h1>
-                
-                <p class="text-lg md:text-xl text-blue-100 mb-10 leading-relaxed animate-fade-up" style="animation-delay: 0.2s">
-                    Hỗ trợ người nước ngoài và doanh nghiệp hoàn thiện mọi thủ tục: Visa, Giấy phép lao động, Thẻ tạm trú, Thành lập và thay đổi doanh nghiệp.
-                </p>
-                
-                <div class="flex flex-col sm:flex-row gap-4 animate-fade-up" style="animation-delay: 0.3s">
-                    <a href="#contact" class="bg-[#f59e0b] text-[#0f172a] px-8 py-4 rounded-full font-bold text-lg hover:bg-yellow-400 transition-all duration-300 shadow-xl shadow-yellow-500/20 text-center">
-                        Nhận tư vấn miễn phí
-                    </a>
-                    <a href="https://zalo.me/0938267586" id="hero-zalo-btn" target="_blank" class="bg-white/10 backdrop-blur-sm border border-white/30 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white/20 transition-all duration-300 flex items-center justify-center gap-2">
-                        <i class="fas fa-comment-dots"></i> Chat Zalo
-                    </a>
-                </div>
-                
-                <!-- Trust badges -->
-                <div class="flex flex-wrap items-center gap-6 mt-12 animate-fade-up" style="animation-delay: 0.4s">
-                    <div class="flex items-center gap-2 text-sm text-blue-200">
-                        <i class="fas fa-shield-alt text-[#f59e0b]"></i> Bảo mật thông tin
-                    </div>
-                    <div class="flex items-center gap-2 text-sm text-blue-200">
-                        <i class="fas fa-bolt text-[#f59e0b]"></i> Xử lý nhanh chóng
-                    </div>
-                    <div class="flex items-center gap-2 text-sm text-blue-200">
-                        <i class="fas fa-check-circle text-[#f59e0b]"></i> Chi phí minh bạch
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Wave divider -->
-        <div class="absolute bottom-0 left-0 right-0">
-            <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 120L60 110C120 100 240 80 360 75C480 70 600 80 720 85C840 90 960 90 1080 85C1200 80 1320 70 1380 65L1440 60V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="white"/>
-            </svg>
-        </div>
-    </section>
+<header id="siteHeader" class="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b border-slate-200/60 transition-all">
+  <div class="max-w-6xl mx-auto px-6 py-3.5 flex items-center justify-between gap-6">
+    <a href="#" class="flex items-center gap-2.5">
+      <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-600 to-blue-500 flex items-center justify-center text-white font-extrabold text-lg shadow-lg shadow-blue-500/30">Ez</div>
+      <div>
+        <div class="font-extrabold text-slate-900 leading-tight" data-config="brand_name">Ez Service</div>
+        <div class="text-[10px] text-slate-500 uppercase tracking-widest font-semibold" data-config="tagline">Dễ dàng hơn bạn nghĩ</div>
+      </div>
+    </a>
+    <nav class="hidden lg:flex gap-8 font-semibold text-sm text-slate-600">
+      <a href="#services" class="hover:text-blue-600 transition">Dịch vụ</a>
+      <a href="#cases" class="hover:text-blue-600 transition">Hồ sơ thành công</a>
+      <a href="#process" class="hover:text-blue-600 transition">Quy trình</a>
+      <a href="#testimonials" class="hover:text-blue-600 transition">Đánh giá</a>
+      <a href="#contact" class="hover:text-blue-600 transition">Liên hệ</a>
+    </nav>
+    <a href="#" id="headerCta" class="hidden lg:inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-500 text-white px-5 py-2.5 rounded-full font-bold text-sm shadow-lg shadow-blue-500/30 hover:-translate-y-0.5 transition">
+      <i class="fas fa-phone-alt"></i> Gọi ngay
+    </a>
+    <button id="mobileToggle" class="lg:hidden text-2xl text-slate-800"><i class="fas fa-bars"></i></button>
+  </div>
+</header>
 
-    <!-- ===== STATS SECTION ===== -->
-    <section class="bg-white py-12 -mt-1">
-        <div class="container mx-auto max-w-5xl px-4">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <!-- Stats sẽ được render bằng JS -->
-                <div id="stats-container" class="contents"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== SERVICES SECTION ===== -->
-    <section id="services" class="py-24 bg-gray-50">
-        <div class="container mx-auto max-w-6xl px-4">
-            <div class="text-center mb-16 reveal">
-                <span class="text-[#f59e0b] font-bold text-sm tracking-widest uppercase">Dịch vụ của chúng tôi</span>
-                <h2 class="text-3xl md:text-5xl font-extrabold text-[#0f172a] mt-3 mb-6">Bạn cần hỗ trợ gì?</h2>
-                <p class="text-gray-500 max-w-2xl mx-auto text-lg">Chọn nhóm dịch vụ phù hợp, tôi sẽ tư vấn chi tiết và báo giá cụ thể cho từng trường hợp.</p>
-            </div>
-            
-            <div class="grid md:grid-cols-2 gap-8" id="services-container">
-                <!-- Services sẽ được render bằng JS -->
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== PROCESS SECTION ===== -->
-    <section id="process" class="py-24 bg-white">
-        <div class="container mx-auto max-w-6xl px-4">
-            <div class="text-center mb-16 reveal">
-                <span class="text-[#f59e0b] font-bold text-sm tracking-widest uppercase">Quy trình làm việc</span>
-                <h2 class="text-3xl md:text-5xl font-extrabold text-[#0f172a] mt-3 mb-6">Chỉ 3 bước đơn giản</h2>
-                <p class="text-gray-500 max-w-2xl mx-auto text-lg">Bạn không cần lo lắng về thủ tục phức tạp. Tôi sẽ đồng hành cùng bạn từ đầu đến khi nhận kết quả.</p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8" id="process-container">
-                <!-- Process steps sẽ được render bằng JS -->
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== TESTIMONIALS SECTION ===== -->
-    <section id="testimonials" class="py-24 bg-[#0f172a] text-white relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-0 left-0 w-72 h-72 bg-[#f59e0b]/5 rounded-full blur-3xl"></div>
-        
-        <div class="container mx-auto max-w-6xl px-4 relative z-10">
-            <div class="text-center mb-16 reveal">
-                <span class="text-[#f59e0b] font-bold text-sm tracking-widest uppercase">Khách hàng nói gì</span>
-                <h2 class="text-3xl md:text-5xl font-extrabold mt-3 mb-6">Niềm tin được xây dựng từ kết quả</h2>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-6" id="testimonials-container">
-                <!-- Testimonials sẽ được render bằng JS -->
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== CTA / CONTACT SECTION ===== -->
-    <section id="contact" class="py-24 bg-gradient-to-br from-blue-50 to-white">
-        <div class="container mx-auto max-w-4xl px-4 text-center">
-            <div class="reveal">
-                <span class="text-[#f59e0b] font-bold text-sm tracking-widest uppercase">Liên hệ ngay</span>
-                <h2 class="text-3xl md:text-5xl font-extrabold text-[#0f172a] mt-3 mb-6">Bạn cần tư vấn?</h2>
-                <p class="text-gray-500 text-lg mb-10 max-w-2xl mx-auto">Đừng ngần ngại liên hệ. Tôi sẽ phản hồi trong vòng 30 phút trong giờ làm việc.</p>
-            </div>
-            
-            <div class="grid sm:grid-cols-3 gap-6 mb-12 reveal">
-                <a href="tel:0938267586" id="contact-phone" class="group bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-blue-200">
-                    <div class="w-16 h-16 bg-blue-100 text-[#1e3a8a] rounded-2xl flex items-center justify-center text-2xl mx-auto mb-4 group-hover:scale-110 transition">
-                        <i class="fas fa-phone-alt"></i>
-                    </div>
-                    <h4 class="font-bold text-lg mb-1">Gọi điện</h4>
-                    <p class="text-gray-500 text-sm" id="contact-phone-text">0938 267 586</p>
-                </a>
-                
-                <a href="https://zalo.me/0938267586" id="contact-zalo" target="_blank" class="group bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-blue-200">
-                    <div class="w-16 h-16 bg-blue-100 text-[#1e3a8a] rounded-2xl flex items-center justify-center text-2xl mx-auto mb-4 group-hover:scale-110 transition">
-                        <i class="fas fa-comment-dots"></i>
-                    </div>
-                    <h4 class="font-bold text-lg mb-1">Chat Zalo</h4>
-                    <p class="text-gray-500 text-sm">Phản hồi nhanh</p>
-                </a>
-                
-                <a href="mailto:info@ezservice.com.vn" id="contact-email" class="group bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-blue-200">
-                    <div class="w-16 h-16 bg-blue-100 text-[#1e3a8a] rounded-2xl flex items-center justify-center text-2xl mx-auto mb-4 group-hover:scale-110 transition">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <h4 class="font-bold text-lg mb-1">Email</h4>
-                    <p class="text-gray-500 text-sm" id="contact-email-text">info@ezservice.com.vn</p>
-                </a>
-            </div>
-            
-            <p class="text-gray-400 text-sm reveal">
-                <i class="fas fa-map-marker-alt mr-2"></i> <span id="contact-address">Tân Tâm - Nhanh chóng - Hiệu quả</span>
-            </p>
-        </div>
-    </section>
-
-    <!-- ===== FOOTER ===== -->
-    <footer class="bg-[#0f172a] text-gray-400 py-12">
-        <div class="container mx-auto max-w-6xl px-4">
-            <div class="grid md:grid-cols-3 gap-8 mb-8">
-                <div>
-                    <div class="flex items-center gap-2 mb-4">
-                        <div class="w-8 h-8 bg-gradient-to-br from-[#1e3a8a] to-[#3b82f6] rounded-lg flex items-center justify-center text-white font-extrabold text-sm">Ez</div>
-                        <span class="text-white font-bold text-lg" id="footer-brand">Ez Service</span>
-                    </div>
-                    <p class="text-sm leading-relaxed">Dịch vụ Visa, Giấy phép lao động, Thẻ tạm trú và Thủ tục doanh nghiệp. Nhanh chóng - Uy tín - Chi phí tối ưu.</p>
-                </div>
-                <div>
-                    <h4 class="text-white font-bold mb-4">Dịch vụ</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#services" class="hover:text-[#f59e0b] transition">Visa & Xuất nhập cảnh</a></li>
-                        <li><a href="#services" class="hover:text-[#f59e0b] transition">Giấy phép lao động</a></li>
-                        <li><a href="#services" class="hover:text-[#f59e0b] transition">Thành lập doanh nghiệp</a></li>
-                        <li><a href="#services" class="hover:text-[#f59e0b] transition">Dịch thuật & Công chứng</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-white font-bold mb-4">Liên hệ</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><i class="fas fa-phone-alt mr-2 text-[#f59e0b]"></i> <span id="footer-phone">0938 267 586</span></li>
-                        <li><i class="fas fa-envelope mr-2 text-[#f59e0b]"></i> <span id="footer-email">info@ezservice.com.vn</span></li>
-                        <li><i class="fas fa-globe mr-2 text-[#f59e0b]"></i> www.ezservice.com.vn</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-t border-gray-800 pt-6 text-center text-sm">
-                <p>&copy; 2026 <span id="footer-brand-2">Ez Service</span>. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- ===== FLOATING BUTTONS ===== -->
-    <div class="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
-        <a href="https://zalo.me/0938267586" id="float-zalo" target="_blank" class="float-btn bg-blue-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-xl hover:bg-blue-600 transition text-2xl" title="Chat Zalo">
-            <i class="fas fa-comment-dots"></i>
-        </a>
-        <a href="tel:0938267586" id="float-phone" class="float-btn bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-xl hover:bg-green-600 transition text-2xl animate-float" title="Gọi điện">
-            <i class="fas fa-phone-alt"></i>
-        </a>
+<section class="relative bg-gradient-to-br from-[#0b1220] via-[#101a2e] to-[#1a2540] text-white overflow-hidden pt-20 pb-40">
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div class="orb w-[500px] h-[500px] bg-blue-600 -top-32 -left-24"></div>
+    <div class="orb w-[400px] h-[400px] bg-amber-500 -bottom-24 -right-20" style="animation-delay:-4s"></div>
+    <div class="orb w-[350px] h-[350px] bg-blue-500 top-1/3 left-1/2" style="animation-delay:-8s"></div>
+    <div class="absolute inset-0 grid-overlay" style="mask-image:radial-gradient(ellipse at center,black 30%,transparent 70%); -webkit-mask-image:radial-gradient(ellipse at center,black 30%,transparent 70%)"></div>
+  </div>
+  <div class="relative max-w-6xl mx-auto px-6 grid lg:grid-cols-[1.15fr_.85fr] gap-14 items-center">
+    <div>
+      <div class="reveal inline-flex items-center gap-2 px-4 py-2 bg-white/10 border border-white/15 rounded-full text-sm font-semibold backdrop-blur mb-7">
+        <span class="w-2 h-2 bg-emerald-400 rounded-full dot-pulse"></span>
+        Hơn 500+ hồ sơ đã xử lý thành công
+      </div>
+      <h1 class="reveal text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tight mb-6">
+        Thủ tục hành chính <br>
+        <span class="bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-200 bg-clip-text text-transparent">dễ dàng hơn bạn nghĩ</span>
+      </h1>
+      <p class="reveal text-lg text-slate-300 max-w-2xl leading-relaxed mb-9">
+        Hỗ trợ người nước ngoài và doanh nghiệp hoàn thiện mọi thủ tục: Visa, Giấy phép lao động, Thẻ tạm trú, Thành lập và thay đổi doanh nghiệp.
+      </p>
+      <div class="reveal flex flex-wrap gap-4 mb-9">
+        <a href="#contact" class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-400 text-amber-950 px-8 py-4 rounded-full font-extrabold shadow-xl shadow-amber-500/30 hover:-translate-y-0.5 transition">Nhận tư vấn miễn phí</a>
+        <a href="#" id="heroZalo" class="inline-flex items-center gap-2 bg-white/10 border border-white/25 text-white px-8 py-4 rounded-full font-bold backdrop-blur hover:bg-white/20 transition"><i class="fas fa-comment-dots"></i> Chat Zalo</a>
+      </div>
+      <div class="reveal flex flex-wrap gap-6 text-sm text-slate-400">
+        <div><i class="fas fa-shield-alt text-amber-400 mr-2"></i>Bảo mật thông tin</div>
+        <div><i class="fas fa-bolt text-amber-400 mr-2"></i>Xử lý nhanh chóng</div>
+        <div><i class="fas fa-check-circle text-amber-400 mr-2"></i>Chi phí minh bạch</div>
+      </div>
     </div>
+    <div class="relative h-[420px] hidden lg:block">
+      <div class="absolute top-[8%] right-0 flex items-center gap-3.5 px-5 py-4 bg-white/10 border border-white/15 rounded-2xl backdrop-blur-xl shadow-2xl" style="animation: float 6s ease-in-out infinite">
+        <div class="w-12 h-12 rounded-xl bg-blue-500/20 text-blue-300 flex items-center justify-center text-xl"><i class="fas fa-passport"></i></div>
+        <div><div class="font-bold text-sm">Visa & Tạm trú</div><div class="text-xs text-slate-400">Xử lý trong 3-5 ngày</div></div>
+      </div>
+      <div class="absolute top-[42%] left-0 flex items-center gap-3.5 px-5 py-4 bg-white/10 border border-white/15 rounded-2xl backdrop-blur-xl shadow-2xl" style="animation: float 6s ease-in-out infinite; animation-delay:-2s">
+        <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center text-xl"><i class="fas fa-id-card"></i></div>
+        <div><div class="font-bold text-sm">Giấy phép lao động</div><div class="text-xs text-slate-400">Tỷ lệ thành công 98%</div></div>
+      </div>
+      <div class="absolute bottom-[8%] right-[5%] flex items-center gap-3.5 px-5 py-4 bg-white/10 border border-white/15 rounded-2xl backdrop-blur-xl shadow-2xl" style="animation: float 6s ease-in-out infinite; animation-delay:-4s">
+        <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center text-xl"><i class="fas fa-building"></i></div>
+        <div><div class="font-bold text-sm">Thành lập DN</div><div class="text-xs text-slate-400">Trọn gói 5-7 ngày</div></div>
+      </div>
+    </div>
+  </div>
+  <svg class="absolute bottom-0 left-0 right-0 w-full h-20" viewBox="0 0 1440 80" preserveAspectRatio="none" style="fill:white"><path d="M0 80L60 70C120 60 240 40 360 35C480 30 600 40 720 45C840 50 960 50 1080 45C1200 40 1320 30 1380 25L1440 20V80H0Z"/></svg>
+</section>
 
-    <!-- ===== SCRIPTS ===== -->
-    <script src="config.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // ===== UPDATE CONTACT INFO =====
-            document.getElementById('brand-name').textContent = siteConfig.brandName;
-            document.getElementById('brand-tagline').textContent = siteConfig.tagline;
-            document.getElementById('footer-brand').textContent = siteConfig.brandName;
-            document.getElementById('footer-brand-2').textContent = siteConfig.brandName;
-            document.getElementById('top-phone').textContent = siteConfig.phone;
-            document.getElementById('top-email').textContent = siteConfig.email;
-            document.getElementById('footer-phone').textContent = siteConfig.phone;
-            document.getElementById('footer-email').textContent = siteConfig.email;
-            document.getElementById('contact-phone-text').textContent = siteConfig.phone;
-            document.getElementById('contact-email-text').textContent = siteConfig.email;
-            document.getElementById('contact-address').textContent = siteConfig.address;
+<section class="py-16">
+  <div class="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-5" id="statsGrid"></div>
+</section>
 
-            // Update phone links
-            ['header-phone-btn', 'mobile-phone-btn', 'contact-phone', 'float-phone'].forEach(id => {
-                const el = document.getElementById(id);
-                if (el) el.href = `tel:${siteConfig.phoneRaw}`;
-            });
+<section class="bg-[#0b1220] py-5 overflow-hidden">
+  <div class="flex gap-10 whitespace-nowrap marquee-track font-semibold text-slate-400">
+    <span>⚡ Nhanh chóng</span><span class="text-amber-400">✦</span>
+    <span>🛡️ Bảo mật</span><span class="text-amber-400">✦</span>
+    <span>✓ Chính xác</span><span class="text-amber-400">✦</span>
+    <span>💰 Chi phí tối ưu</span><span class="text-amber-400">✦</span>
+    <span>⭐ Uy tín</span><span class="text-amber-400">✦</span>
+    <span>🤝 Tận tâm</span><span class="text-amber-400">✦</span>
+    <span>⚡ Nhanh chóng</span><span class="text-amber-400">✦</span>
+    <span>🛡️ Bảo mật</span><span class="text-amber-400">✦</span>
+    <span>✓ Chính xác</span><span class="text-amber-400">✦</span>
+    <span>💰 Chi phí tối ưu</span><span class="text-amber-400">✦</span>
+    <span>⭐ Uy tín</span><span class="text-amber-400">✦</span>
+    <span>🤝 Tận tâm</span><span class="text-amber-400">✦</span>
+  </div>
+</section>
 
-            // Update Zalo links
-            ['hero-zalo-btn', 'contact-zalo', 'float-zalo'].forEach(id => {
-                const el = document.getElementById(id);
-                if (el) el.href = `https://zalo.me/${siteConfig.zalo}`;
-            });
+<section id="services" class="py-24">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="reveal text-center max-w-2xl mx-auto mb-16">
+      <div class="text-xs font-bold uppercase tracking-[.15em] text-blue-600 mb-3">Dịch vụ của chúng tôi</div>
+      <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">Bạn cần hỗ trợ gì?</h2>
+      <p class="text-slate-500 text-lg">Chọn nhóm dịch vụ phù hợp, tôi sẽ tư vấn chi tiết và báo giá cụ thể.</p>
+    </div>
+    <div class="grid md:grid-cols-2 gap-7" id="servicesGrid"></div>
+  </div>
+</section>
 
-            // Update Email links
-            const emailEl = document.getElementById('contact-email');
-            if (emailEl) emailEl.href = `mailto:${siteConfig.email}`;
+<section id="cases" class="py-24 bg-gradient-to-b from-[#0b1220] to-[#101a2e] text-white">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="reveal text-center max-w-2xl mx-auto mb-16">
+      <div class="text-xs font-bold uppercase tracking-[.15em] text-amber-400 mb-3">Hồ sơ thành công</div>
+      <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">Những case đã hoàn thành</h2>
+      <p class="text-slate-400 text-lg">Mỗi hồ sơ là một câu chuyện. Đây là một số kết quả chúng tôi đã đạt được.</p>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="casesGrid"></div>
+  </div>
+</section>
 
-            // ===== RENDER STATS =====
-            const statsContainer = document.getElementById('stats-container');
-            siteConfig.stats.forEach((stat, i) => {
-                statsContainer.innerHTML += `
-                    <div class="text-center p-6 reveal" style="transition-delay: ${i * 0.1}s">
-                        <div class="stat-number text-3xl md:text-4xl font-extrabold text-[#1e3a8a] mb-2">${stat.number}</div>
-                        <div class="text-gray-500 text-sm font-medium">${stat.label}</div>
-                    </div>
-                `;
-            });
+<section id="process" class="py-24">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="reveal text-center max-w-2xl mx-auto mb-16">
+      <div class="text-xs font-bold uppercase tracking-[.15em] text-blue-600 mb-3">Quy trình</div>
+      <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">Chỉ 3 bước đơn giản</h2>
+      <p class="text-slate-500 text-lg">Tôi đồng hành cùng bạn từ đầu đến kết quả cuối cùng.</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6" id="processGrid"></div>
+  </div>
+</section>
 
-            // ===== RENDER SERVICES =====
-            const servicesContainer = document.getElementById('services-container');
-            const colorMap = {
-                blue: { bg: 'bg-blue-50', icon: 'bg-blue-100 text-blue-600', border: 'border-blue-200', accent: 'text-blue-600' },
-                green: { bg: 'bg-green-50', icon: 'bg-green-100 text-green-600', border: 'border-green-200', accent: 'text-green-600' }
-            };
-            
-            siteConfig.services.forEach((service, i) => {
-                const c = colorMap[service.color] || colorMap.blue;
-                const listItems = service.items.map(item => 
-                    `<li class="flex items-start gap-3">
-                        <i class="fas fa-check-circle text-green-500 mt-0.5"></i>
-                        <span class="text-gray-600">${item}</span>
-                    </li>`
-                ).join('');
-                
-                servicesContainer.innerHTML += `
-                    <div class="service-card bg-white rounded-3xl p-8 border ${c.border} reveal" style="transition-delay: ${i * 0.15}s">
-                        <div class="flex items-start gap-4 mb-6">
-                            <div class="w-14 h-14 ${c.icon} rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">
-                                <i class="fas ${service.icon}"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold text-[#0f172a]">${service.title}</h3>
-                                <p class="${c.accent} text-sm font-semibold mt-1">${service.subtitle}</p>
-                            </div>
-                        </div>
-                        <ul class="space-y-3">${listItems}</ul>
-                        <a href="#contact" class="inline-flex items-center gap-2 mt-6 ${c.accent} font-bold text-sm hover:gap-3 transition-all">
-                            Tư vấn dịch vụ này <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                `;
-            });
+<section id="testimonials" class="py-24 bg-gradient-to-b from-[#0b1220] to-[#101a2e] text-white">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="reveal text-center max-w-2xl mx-auto mb-16">
+      <div class="text-xs font-bold uppercase tracking-[.15em] text-amber-400 mb-3">Đánh giá</div>
+      <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight">Khách hàng nói gì về chúng tôi</h2>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="testimonialsGrid"></div>
+  </div>
+</section>
 
-            // ===== RENDER PROCESS =====
-            const processContainer = document.getElementById('process-container');
-            siteConfig.process.forEach((step, i) => {
-                processContainer.innerHTML += `
-                    <div class="relative reveal" style="transition-delay: ${i * 0.15}s">
-                        <div class="bg-gray-50 rounded-3xl p-8 h-full border border-gray-100 hover:border-blue-200 transition-colors duration-300">
-                            <div class="text-5xl font-extrabold text-blue-100 mb-4">${step.step}</div>
-                            <h3 class="text-xl font-bold text-[#0f172a] mb-3">${step.title}</h3>
-                            <p class="text-gray-500 leading-relaxed">${step.desc}</p>
-                        </div>
-                    </div>
-                `;
-            });
+<section id="contact" class="py-24 bg-gradient-to-b from-slate-50 to-white">
+  <div class="max-w-6xl mx-auto px-6 grid lg:grid-cols-[1fr_1.3fr] gap-14">
+    <div class="reveal">
+      <div class="text-xs font-bold uppercase tracking-[.15em] text-blue-600 mb-3">Liên hệ</div>
+      <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-4">Bạn cần tư vấn?</h2>
+      <p class="text-slate-500 text-lg mb-8">Tôi sẽ phản hồi trong vòng 30 phút trong giờ làm việc.</p>
+      <div class="flex flex-col gap-3.5" id="contactList"></div>
+    </div>
+    <div class="reveal grid sm:grid-cols-3 gap-5 self-start" id="contactCtaGrid"></div>
+  </div>
+</section>
 
-            // ===== RENDER TESTIMONIALS =====
-            const testimonialsContainer = document.getElementById('testimonials-container');
-            siteConfig.testimonials.forEach((t, i) => {
-                testimonialsContainer.innerHTML += `
-                    <div class="testimonial-card bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 reveal" style="transition-delay: ${i * 0.15}s">
-                        <div class="flex items-center gap-1 text-[#f59e0b] mb-4">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        </div>
-                        <p class="text-blue-100 leading-relaxed mb-6 italic">"${t.text}"</p>
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 bg-gradient-to-br from-[#f59e0b] to-yellow-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                                ${t.avatar}
-                            </div>
-                            <div>
-                                <div class="font-bold text-white">${t.name}</div>
-                                <div class="text-blue-300 text-sm">${t.role}</div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
+<footer class="bg-[#0b1220] text-slate-400 pt-16">
+  <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-[1.5fr_1fr_1fr] gap-10 pb-10">
+    <div>
+      <div class="flex items-center gap-2.5 mb-4">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-600 to-blue-500 flex items-center justify-center text-white font-extrabold">Ez</div>
+        <div class="text-white font-extrabold text-lg" data-config="brand_name"></div>
+      </div>
+      <p class="text-sm leading-relaxed" data-config="footer_description"></p>
+    </div>
+    <div>
+      <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Dịch vụ</h4>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="#services" class="hover:text-amber-400 transition">Visa & Xuất nhập cảnh</a></li>
+        <li><a href="#services" class="hover:text-amber-400 transition">Giấy phép lao động</a></li>
+        <li><a href="#services" class="hover:text-amber-400 transition">Thành lập doanh nghiệp</a></li>
+        <li><a href="#services" class="hover:text-amber-400 transition">Dịch thuật & Công chứng</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Liên hệ</h4>
+      <ul class="space-y-2.5 text-sm">
+        <li><i class="fas fa-phone-alt text-amber-400 w-5"></i> <span data-config="hotline"></span></li>
+        <li><i class="fas fa-envelope text-amber-400 w-5"></i> <span data-config="email"></span></li>
+        <li><i class="fas fa-globe text-amber-400 w-5"></i> ezservice.com.vn</li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-white/10 py-6 text-center text-sm">© <span id="year"></span> <span data-config="brand_name"></span>. All rights reserved.</div>
+</footer>
 
-            // ===== SCROLL REVEAL =====
-            const revealElements = document.querySelectorAll('.reveal');
-            const revealObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                        revealObserver.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-            
-            revealElements.forEach(el => revealObserver.observe(el));
+<div class="fixed bottom-6 right-6 flex flex-col gap-3 z-40">
+  <a href="#" id="floatZalo" class="w-14 h-14 rounded-full bg-[#0068ff] text-white flex items-center justify-center text-2xl shadow-2xl hover:scale-110 transition" title="Chat Zalo"><i class="fas fa-comment-dots"></i></a>
+  <a href="#" id="floatPhone" class="floater-phone w-14 h-14 rounded-full bg-emerald-500 text-white flex items-center justify-center text-2xl shadow-2xl hover:scale-110 transition" title="Gọi điện"><i class="fas fa-phone-alt"></i></a>
+</div>
 
-            // ===== SMOOTH SCROLL FOR ANCHORS =====
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                });
-            });
-        });
-    </script>
+<div id="mobileMenu" class="fixed inset-y-0 right-0 w-80 max-w-[85vw] bg-white z-[200] p-8 pt-20 shadow-2xl translate-x-full transition-transform duration-300">
+  <button id="mobileClose" class="absolute top-5 right-5 text-2xl text-slate-400"><i class="fas fa-times"></i></button>
+  <nav class="flex flex-col gap-5 text-lg font-semibold">
+    <a href="#services" class="pb-3 border-b border-slate-200">Dịch vụ</a>
+    <a href="#cases" class="pb-3 border-b border-slate-200">Hồ sơ thành công</a>
+    <a href="#process" class="pb-3 border-b border-slate-200">Quy trình</a>
+    <a href="#testimonials" class="pb-3 border-b border-slate-200">Đánh giá</a>
+    <a href="#contact" class="pb-3 border-b border-slate-200">Liên hệ</a>
+    <a href="#" id="mobileCall" class="bg-gradient-to-r from-blue-600 to-blue-500 text-white text-center py-3 rounded-full mt-2">Gọi ngay</a>
+  </nav>
+</div>
+
+<script>
+(async function() {
+  const load = async (f) => { try { return await (await fetch(f)).json(); } catch(e){ return null; } };
+  const [S0, SE0, CA0, TE0] = await Promise.all([
+    load('content/settings.json'), load('content/services.json'),
+    load('content/cases.json'), load('content/testimonials.json')
+  ]);
+  const S = S0||{}, SE = SE0||{items:[]}, CA = CA0||{items:[]}, TE = TE0||{items:[]};
+  
+  document.querySelectorAll('[data-config]').forEach(el => {
+    const k = el.dataset.config;
+    if (S[k]) el.textContent = S[k];
+  });
+  
+  const phone = S.hotline_raw || S.hotline || '';
+  const zalo = S.zalo || phone;
+  const email = S.email || '';
+  
+  ['headerCta','mobileCall','floatPhone'].forEach(id => { const el=document.getElementById(id); if(el&&phone) el.href='tel:'+phone; });
+  ['heroZalo','floatZalo'].forEach(id => { const el=document.getElementById(id); if(el&&zalo) el.href='https://zalo.me/'+zalo; });
+  
+  const sg = document.getElementById('statsGrid');
+  if (sg && S.stats) sg.innerHTML = S.stats.map(s => `
+    <div class="reveal text-center py-7 px-5 bg-gradient-to-b from-slate-50 to-white border border-slate-200 rounded-2xl hover:-translate-y-1.5 hover:shadow-xl hover:border-blue-300 transition-all">
+      <div class="stat-num text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent" data-target="${s.number}">0</div>
+      <div class="text-slate-500 text-sm font-semibold mt-1.5">${s.label}</div>
+    </div>`).join('');
+  
+  const svg = document.getElementById('servicesGrid');
+  if (svg) svg.innerHTML = SE.items.map((s,i) => {
+    const g = s.color==='green';
+    return `<div class="service-card ${g?'green':''} reveal relative bg-white border border-slate-200 rounded-3xl p-9 hover:-translate-y-2 hover:shadow-2xl transition-all duration-500 overflow-hidden" style="transition-delay:${i*0.1}s">
+      <div class="flex items-start gap-4 mb-6">
+        <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl shrink-0 ${g?'bg-emerald-50 text-emerald-600':'bg-blue-50 text-blue-600'}"><i class="fas ${s.icon}"></i></div>
+        <div><div class="text-xl font-extrabold mb-1">${s.title}</div><div class="text-slate-500 text-sm font-semibold">${s.subtitle}</div></div>
+      </div>
+      <ul class="space-y-3 mb-6">${s.items.map(x=>`<li class="flex gap-3 text-slate-600 text-[15px]"><i class="fas fa-check-circle text-emerald-500 mt-0.5"></i><span>${x}</span></li>`).join('')}</ul>
+      <a href="#contact" class="inline-flex items-center gap-2 font-bold text-sm ${g?'text-emerald-600':'text-blue-600'} hover:gap-3.5 transition-all">Tư vấn dịch vụ này <i class="fas fa-arrow-right"></i></a>
+    </div>`;
+  }).join('');
+  
+  const cg = document.getElementById('casesGrid');
+  if (cg) cg.innerHTML = CA.items.map((c,i) => `
+    <div class="reveal bg-white/5 border border-white/10 rounded-3xl overflow-hidden hover:-translate-y-2 hover:border-amber-400/40 hover:shadow-2xl transition-all duration-500" style="transition-delay:${i*0.1}s">
+      <div class="aspect-[16/10] bg-gradient-to-br from-blue-500/30 to-amber-500/20 flex items-center justify-center text-5xl text-white/40 relative overflow-hidden">
+        ${c.image?`<img src="${c.image}" class="w-full h-full object-cover" loading="lazy" alt="${c.title}">`:'<i class="fas fa-folder-open"></i>'}
+        ${c.tag?`<div class="absolute top-4 left-4 px-3 py-1.5 bg-amber-500 text-amber-950 text-[11px] font-bold rounded-full uppercase tracking-wider">${c.tag}</div>`:''}
+      </div>
+      <div class="p-6">
+        <div class="text-lg font-bold mb-2">${c.title}</div>
+        <div class="text-slate-400 text-sm leading-relaxed mb-4">${c.description}</div>
+        <div class="flex justify-between text-xs text-slate-400 pt-4 border-t border-white/10">
+          <span><i class="fas fa-clock text-amber-400 mr-1.5"></i>${c.duration}</span>
+          <span><i class="fas fa-check text-amber-400 mr-1.5"></i>${c.result}</span>
+        </div>
+      </div>
+    </div>`).join('');
+  
+  const pg = document.getElementById('processGrid');
+  if (pg && S.process) pg.innerHTML = S.process.map((p,i) => `
+    <div class="reveal bg-slate-50 border border-slate-200 rounded-3xl p-9 hover:bg-white hover:-translate-y-1.5 hover:shadow-2xl transition-all" style="transition-delay:${i*0.15}s">
+      <div class="text-7xl font-extrabold leading-none bg-gradient-to-br from-blue-400 to-blue-600 bg-clip-text text-transparent opacity-40 mb-4">${p.step}</div>
+      <div class="text-xl font-bold mb-3">${p.title}</div>
+      <div class="text-slate-500 leading-relaxed">${p.desc}</div>
+    </div>`).join('');
+  
+  const tg = document.getElementById('testimonialsGrid');
+  if (tg) tg.innerHTML = TE.items.map((t,i) => `
+    <div class="reveal bg-white/5 border border-white/10 rounded-3xl p-8 hover:-translate-y-1.5 hover:bg-white/[.08] transition-all" style="transition-delay:${i*0.1}s">
+      <div class="flex gap-1 text-amber-400 mb-5 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+      <div class="text-slate-300 italic leading-relaxed mb-6">"${t.text}"</div>
+      <div class="flex items-center gap-3.5">
+        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-amber-500 to-amber-400 flex items-center justify-center font-extrabold text-amber-950">${t.name.charAt(0)}</div>
+        <div><div class="font-bold text-[15px]">${t.name}</div><div class="text-slate-400 text-sm">${t.role}</div></div>
+      </div>
+    </div>`).join('');
+  
+  const ccg = document.getElementById('contactCtaGrid');
+  if (ccg) ccg.innerHTML = `
+    <a href="tel:${phone}" class="reveal bg-white border border-slate-200 rounded-3xl p-8 text-center hover:-translate-y-1.5 hover:shadow-xl hover:border-blue-300 transition-all">
+      <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-500 flex items-center justify-center text-white text-2xl"><i class="fas fa-phone-alt"></i></div>
+      <div class="font-bold mb-1.5">Gọi điện</div><div class="text-slate-500 text-sm">${S.hotline||''}</div></a>
+    <a href="https://zalo.me/${zalo}" target="_blank" class="reveal bg-white border border-slate-200 rounded-3xl p-8 text-center hover:-translate-y-1.5 hover:shadow-xl hover:border-blue-300 transition-all">
+      <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-cyan-500 to-cyan-400 flex items-center justify-center text-white text-2xl"><i class="fas fa-comment-dots"></i></div>
+      <div class="font-bold mb-1.5">Chat Zalo</div><div class="text-slate-500 text-sm">Phản hồi nhanh</div></a>
+    <a href="mailto:${email}" class="reveal bg-white border border-slate-200 rounded-3xl p-8 text-center hover:-translate-y-1.5 hover:shadow-xl hover:border-blue-300 transition-all">
+      <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-400 flex items-center justify-center text-white text-2xl"><i class="fas fa-envelope"></i></div>
+      <div class="font-bold mb-1.5">Email</div><div class="text-slate-500 text-sm break-all">${email}</div></a>`;
+  
+  const cl = document.getElementById('contactList');
+  if (cl) cl.innerHTML = `
+    <a href="tel:${phone}" class="flex items-center gap-4 p-4 bg-white border border-slate-200 rounded-2xl hover:border-blue-400 hover:translate-x-1.5 hover:shadow-md transition-all">
+      <i class="fas fa-phone-alt text-blue-600 text-lg w-6"></i>
+      <div><div class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Hotline</div><div class="font-bold">${S.hotline||''}</div></div></a>
+    <a href="mailto:${email}" class="flex items-center gap-4 p-4 bg-white border border-slate-200 rounded-2xl hover:border-blue-400 hover:translate-x-1.5 hover:shadow-md transition-all">
+      <i class="fas fa-envelope text-blue-600 text-lg w-6"></i>
+      <div><div class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Email</div><div class="font-bold break-all">${email}</div></div></a>
+    <div class="flex items-center gap-4 p-4 bg-white border border-slate-200 rounded-2xl">
+      <i class="fas fa-map-marker-alt text-blue-600 text-lg w-6"></i>
+      <div><div class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Địa chỉ</div><div class="font-bold">${S.address||''}</div></div></div>`;
+  
+  document.getElementById('year').textContent = new Date().getFullYear();
+  setTimeout(() => document.getElementById('loader').classList.add('hidden'), 500);
+  
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); io.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  
+  const cio = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const el = e.target;
+        const t = el.dataset.target;
+        const m = t.match(/(\d+)/);
+        if (!m) { el.textContent = t; return; }
+        const end = parseInt(m[1]);
+        const pre = t.split(m[1])[0], suf = t.split(m[1])[1];
+        let cur = 0; const step = Math.max(1, Math.ceil(end/40));
+        const tm = setInterval(() => {
+          cur += step;
+          if (cur >= end) { cur = end; clearInterval(tm); }
+          el.textContent = pre + cur + suf;
+        }, 25);
+        cio.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.stat-num').forEach(c => cio.observe(c));
+  
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => header.classList.toggle('shadow-md', window.scrollY > 30));
+  
+  const mm = document.getElementById('mobileMenu');
+  document.getElementById('mobileToggle').onclick = () => mm.classList.remove('translate-x-full');
+  document.getElementById('mobileClose').onclick = () => mm.classList.add('translate-x-full');
+  mm.querySelectorAll('a').forEach(a => a.onclick = () => mm.classList.add('translate-x-full'));
+})();
+</script>
 </body>
 </html>
